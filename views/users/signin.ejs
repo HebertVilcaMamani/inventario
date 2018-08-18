@@ -1,0 +1,25 @@
+<link rel="stylesheet" href="/cssFiles/estilos2.css">
+  <link rel="stylesheet" href='/cssFiles/bootstrap.min.css'>
+<center><h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">Registro de Nuevo Usuario</h3></center>
+<form  action="http://192.168.2.12:3000/registro" method="post" target="_blank">
+    <div style="width: 20%;margin: 1px auto">
+  <label for="nombre">Nombre</label>
+  <input type="text" name="nombre" class="form-control" >
+  <label for="username">Usuario</label>
+  <input type="text" name="username" class="form-control">
+  <label for="password">Contraseña</label>
+  <input type="password" name="password" class="form-control">
+  <label for="password"> Confirmar Contraseña</label>
+  <input type="password" name="confirma" class="form-control">
+  <label for="TipoUsuario">Tipos Usuario</label>
+  <select name="TipoUsuario" class="form-control">
+  <option >Administrador</option>
+  <option >Empleado</option>
+</select>
+<label for="telefono">Telefono</label>
+<input type="text" name="telefono" class="form-control" >
+<br>
+<button type="submit" class="btn btn-success">Iniciar Sesion</button>
+&nbsp&nbsp&nbsp    <a href='http://192.168.2.12:3000/backend' >Volver</a>
+</div>
+</form>

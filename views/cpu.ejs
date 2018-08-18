@@ -1,0 +1,447 @@
+<html>
+<title>CPU</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#d72525"><link rel="icon" type="image/png" href="/imgFiles/presentacion.png">
+<link rel="stylesheet" href="/cssFiles/estilos2.css">
+<!-- iconos-->
+<link rel="stylesheet" href='/cssFiles/iconos.min.css'>
+<link rel="stylesheet" href='/cssFiles/bootstrap.min.css'>
+<style>
+html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
+
+
+.visible-scrollbar, .invisible-scrollbar {
+  display: block;
+  width: 70em;
+  overflow: auto;
+}
+.invisible-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+datalist {
+    display: none;
+}
+</style>
+<body class="w3-light-grey">
+
+<!-- Top container -->
+<div class="w3-bar w3-top w3-black w3-large" style="z-index:4">
+  <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open();"><i class="fa fa-bars"></i>  Menu</button>&nbsp;&nbsp;&nbsp;INVENTARIO
+  <span class="w3-bar-item w3-right"><form name='frmsalir' action='../controllers/cusuarios.php' method='post'><input type='hidden' name='accion' value='cerrarSesion'><a href='http://192.168.2.12:3000/logout' >Salir</a>&nbsp;</form></span>
+</div>
+
+<!-- Sidebar/menu -->
+<nav class="w3-sidebar w3-collapse w3-white w3-animate-left" style="z-index:3;width:175px;" id="mySidebar"><br>
+  <div class="w3-container w3-row">
+    <div class="w3-col s4">
+			<!-- persona -->
+			<!-- persona -->
+    </div>
+    <div class="w3-col s8 w3-bar">
+      <span>  Bienvenido <h5><%=data.usuario.username%></h5></span><br>
+      <a href="mailto:hebert_2100@hotmail.com?Subject=Hola%20Hebert" target="_top"class="w3-bar-item w3-button"><i class="fa fa-envelope"></i></a>
+      <a href="http://192.168.2.12:3000/registro" class="w3-bar-item w3-button"><i class="fa fa-user"></i></a>
+      <a href="#" class="w3-bar-item w3-button"><i class="fa fa-cog"></i></a>
+    </div>
+
+  </div>
+  <hr>
+  <div class="w3-container">
+    <h5>Dashboard</h5>
+  </div>
+  <div class="w3-bar-block">
+    <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>  Close Menu</a>
+    <a href="http://192.168.2.12:3000/backend" class="w3-bar-item w3-button w3-padding"><i class="fa fa-users fa-fw"></i>Menu</a>
+  <div class="w3-bar-item w3-button" onclick="myAccFunc()">
+ COMPUTADORA<i class="fa fa-caret-down"></i></div>
+ <div id="demoAcc" class="w3-hide w3-white w3-card-4">
+   <a href="http://192.168.2.12:3000/ordenador" class="w3-bar-item w3-button">ORDENADOR</a>
+   <a href="http://192.168.2.12:3000/cpu" class="w3-bar-item w3-button">CPU</a>
+   <a href="http://192.168.2.12:3000/monitor" class="w3-bar-item w3-button">MONITOR</a>
+   <a href="http://192.168.2.12:3000/teclado" class="w3-bar-item w3-button">TECLADO</a>
+
+ </div>
+
+ <div class="w3-bar-item w3-button" onclick="myAccFunc2()">
+PATRIMONIO<i class="fa fa-caret-down"></i></div>
+<div id="demoAcc2" class="w3-hide w3-white w3-card-4">
+  <a href="http://192.168.2.12:3000/patrimonio" class="w3-bar-item w3-button">AGREGAR</a>
+    <a href="http://192.168.2.12:3000/formpatrim" class="w3-bar-item w3-button">FORMATO PATRIMONIO</a>
+</div>
+</div>
+  </div>
+</nav>
+
+
+<!-- Overlay effect when opening sidebar on small screens -->
+<div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+<!-- !PAGE CONTENT! -->
+<div class="w3-main" style="margin-left:190px;margin-top:43px;">
+
+  <!-- Header -->
+
+
+  <!-- Footer -->
+  <footer class="w3-container w3-padding-16 w3-light-grey">
+		<!--MI CODIGO-->
+    <body>
+      <div style="display: block;padding: 1px;margin: 0;background-color:#AAB7B8  ;color:white">
+        <center><h1>REGISTRO DEL CPU</h1></center>
+      </div>
+
+
+      <form ng-app="app" ng-controller="frmcpu" ng-init="id=0;campo='b.marca';operador='LIKE';valor=''"  name='exampleForm' novalidate>
+      <div class='container' style="width: 98%">
+        <div class='row'>
+          <div class='col-xs-3'>
+            <div style="width: 90%;margin: 1px auto">
+        <div class='row space'>
+          <label ></label>{{id}}
+          </div>
+
+  <div class='row space'>
+  <label for="">Numero IP</label>
+  <input type='text' ng-model="num_ip" class="form-control w3-animate-zoom "
+  placeholder='ingrese numero IP' name='num_ip'
+  required   ng-class='{ error: exampleForm.num_ip.$invalid && !exampleForm.$pristine }' >
+  <span  ng-show=' exampleForm.num_ip.$error.required '><p> Ingrese Datos en el campo</p></span>
+  </div>
+
+  <div class='row space'>
+    <label for="">Procesador</label>
+  <input type='text' ng-model="procesador" class="form-control w3-animate-zoom "
+  placeholder='ingrese el procesador' name='procesador'
+  required   ng-class='{ error: exampleForm.procesador.$invalid && !exampleForm.$pristine }' >
+    <span  ng-show=' exampleForm.procesador.$error.required '><p> Ingrese Datos en el campo</p></span>
+  </div>
+
+  <div class='row space'>
+    <label for="">Numero MAC</label>
+  <input type='text' ng-model="nummac" class="form-control w3-animate-zoom "
+  placeholder='ingrese el numero mac' name='nummac'
+  required   ng-class='{ error: exampleForm.nummac.$invalid && !exampleForm.$pristine }' >
+    <span  ng-show=' exampleForm.nummac.$error.required '><p> Ingrese Datos en el campo</p></span>
+  </div>
+
+  <div class='row space'>
+    <label for="">Memoria RAM</label>
+  <input type='text' ng-model="memram" class="form-control w3-animate-zoom "
+  placeholder='ingrese la memoria ram' name="memram"
+  required   ng-class='{ error: exampleForm.memram.$invalid && !exampleForm.$pristine }' >
+    <span  ng-show=' exampleForm.memram.$error.required '><p> Ingrese Datos en el campo</p></span>
+  </div>
+
+  <div class='row space'>
+    <label for="">Capacidad de Almacenamiento</label>
+  <input type='text' ng-model="capalmac" class="form-control w3-animate-zoom "
+  placeholder='ingrese capacidad de almacenamiento' name="capalmac"
+  required   ng-class='{ error: exampleForm.capalmac.$invalid && !exampleForm.$pristine }' >
+    <span  ng-show=' exampleForm.capalmac.$error.required '><p> Ingrese Datos en el campo</p></span>
+  </div>
+
+  <div class='row space'  ng-init='patrimonio()'>
+  <label >Patrimonio</label>
+  <select ng-model="Patrimonio_id"  name="Patrimonio_id" class="form-control">
+  <option ng-repeat="b in init3" value='{{b.id}}'>{{b.CODPATRIM}}&nbsp&nbsp&nbsp{{b.persona}}</option>
+  </select>
+  </div>
+
+  <div class='row space'>
+            <button class='btn btn-info' ng-click='reload()'><span class='fa fa-plus-circle'></span></button>
+            <button class='btn btn-success' ng-click='guardar()' ng-disabled='!exampleForm.$valid'>Guardar</button>
+            <button class='btn btn-danger' ng-click="eliminar(id);" ng-disabled='!exampleForm.$valid' >Eliminar</button>
+        </div>
+
+        </div>
+
+        </div>
+
+        <div>
+
+          </div>
+        <div class='col-xs-9'>
+        <div class='row space' >
+          <div class='col-sm-12'>
+            <table class='table'>
+              <tr>
+                <th>
+          <select ng-model="campo" class="form-control w3-animate-zoom">
+            <option value="b.marca">marca</option>
+            <option value="b.modelo">Modelo</option>
+            <option value="b.serie">Numero Serie</option>
+            <option value="num_ip">Numero IP</option>
+            <option value="procesador">Procesador</option>
+            <option value="memram">Memoria Ram</option>
+            <option value="capalmac">Capacidad Almacenam.</option>
+            <option value="memram">Memoria Ram</option>
+            <option value="b.CODPATRIM">Patrimonio CPU</option>
+            <option value="c.PR_NOMBRE">Usuario</option>
+
+
+
+          </select>
+        </th>
+      <th>
+          <select ng-model="operador" class="form-control w3-animate-zoom">
+            <option value="LIKE">Similar</option>
+            <option value="=">Igual</option>
+            <option value=">">Mayor</option>
+            <option value="<">Menor</option>
+          </select>
+
+        </th>
+
+      <th>
+              <input type="text" ng-model="valor" value="" size='30'/>
+                <button class='btn btn-default w3-animate-zoom' ng-click="buscar();">Buscar</button>
+            </th>
+
+      </th>
+      </tr>
+        </table>
+
+          </input>
+           <div class="visible-scrollbar">
+          <table   class='table table-bordered table-hover' ng-init='configPages()' >
+            <tr><th>No</th><th>MARCA</th><th>MODELO</th><th>Nº SERIE</th><th>NUMERO IP</th>
+            <th>PROCESADOR</th><th>NUM_MAC</th><th>MEM_RAM</th><th>CAPAC_ALM</th><th>PATRIMONIO</th>
+          <th>PERSONA_CARGO_CPU </th></tr>
+                  <tr ng-repeat="x in encs | startFromGrid: currentPage * pageSize | limitTo: pageSize"  >
+                          <th>{{$index+1}}</th>
+                          <td>{{x.marca}}</td>
+                          <td>{{x.modelo}}</td>
+                          <td>{{x.serie}}</td>
+                          <td>{{x.num_ip}}</td>
+                          <td>{{x.procesador}}</td>
+                          <td>{{x.nummac}}</td>
+                          <td>{{x.memram}}</td>
+                          <td>{{x.capalmac}}</td>
+                          <td>{{x.CODPATRIM}}</td>
+                          <td>{{x.PR_NOMBRE}}</td>
+                          <td><input type="button" class="btn btn-info" ng-click="cad=x.id+','+x.num_ip+','+x.procesador+','+x.nummac+','+x.memram+','+x.capalmac+','+x.Patrimonio_id; mostrarDatos1(cad);" value="Modificar">
+
+                          </td>
+
+                          <td>  <button class="btn btn-danger"  ng-click="eliminar(x.id);"><span class="fa fa-trash-o"></span></button></td>
+
+
+                  </tr>
+
+          </table>
+        </div>
+          <div class="w3-quarter w3-animate-zoom">
+            <div class="w3-container w3-lime w3-padding-16">
+              <div class="w3-left"><i class="fa fa-tags w3-xxxlarge"></i></div>
+              <div class="w3-right">
+                <center><h1><div  id='cmarcas'></div></h1></center>
+              </div>
+              <div class="w3-clear"></div>
+              <h4> CPU REGISTRADOS</h4>
+            </div>
+          </div>
+  <center>
+  <div class='btn-group'>
+          <button type='button' class='btn btn-default' ng-disabled='currentPage == 0' ng-click='currentPage = currentPage - 1'>&laquo;</button>
+          <button type='button' class='btn btn-default' ng-disabled='currentPage == page.no - 1' ng-click='setPage(page.no)' ng-repeat='page in pages'>{{page.no}}</button>
+          <button type='button' class='btn btn-default' ng-disabled='currentPage >= encs.length/pageSize - 1' , ng-click='currentPage = currentPage + 1'>&raquo;</button>
+        </div>
+  </center>
+  </div>
+    </div>
+    </div>
+    </div>
+    </div>
+
+    </form>
+    <script src='/javas/jquery-2.1.4.min.js'></script>
+  <script src="/angularjs/angular.min.js"></script>
+    <script type="text/javascript">
+    var app = angular.module("app", []);
+    app.controller("frmcpu",   function($scope,$http)
+    {
+    	$scope.formData = {};
+    	$scope.currentPage = 0;
+      $scope.pageSize = 10; //  tamño de la Pagina
+      $scope.pages = [];
+
+    	$scope.reload = function()
+    {
+       location.reload();
+    }
+
+
+    $scope.configPages = function() {
+    			$scope.pages.length = 0;
+    			var ini = $scope.currentPage - 4;
+    			var fin = $scope.currentPage + 5;
+    			if (ini < 1) {
+    				ini = 1;
+    				if (Math.ceil($scope.encs.length / $scope.pageSize) > 10)
+    					fin = 10;
+    				else
+    					fin = Math.ceil($scope.encs.length / $scope.pageSize);
+    			} else {
+    				if (ini >= Math.ceil($scope.encs.length / $scope.pageSize) - 10) {
+    					ini = Math.ceil($scope.encs.length / $scope.pageSize) - 10;
+    					fin = Math.ceil($scope.encs.length / $scope.pageSize);
+    				}
+    			}
+    			if (ini < 1) ini = 1;
+    			for (var i = ini; i <= fin; i++) {
+    				$scope.pages.push({
+    					no: i
+    				});
+    			}
+
+    			if ($scope.currentPage >= $scope.pages.length)
+    				$scope.currentPage = $scope.pages.length - 1;
+    		};
+
+    		$scope.setPage = function(index) {
+    			$scope.currentPage = index - 1;
+    		};
+
+    //alertas
+    function AlertsCtrl($scope, alertsManager) {
+        $scope.alerts = alertsManager.alerts;
+    }
+
+    //fin alertas
+    $scope.submitForm = function (formData) {
+    	alert('Form submitted with' + JSON.stringify(formData));
+    };
+    	$scope.guardar=function(){
+          id=$scope.id,
+          url='/guardado/cpu';
+            if (id>0) {
+          url='/update/cpu';
+             };
+        	$http.post(url,
+    		{
+    	    'id':id,
+          'num_ip':$scope.num_ip,
+          'procesador':$scope.procesador,
+          'nummac':$scope.nummac,
+          'memram':$scope.memram,
+          'capalmac':$scope.capalmac,
+          'Patrimonio_id':$scope.Patrimonio_id,
+           'accion':'guardar',
+    		}).then(function(response)
+    			{
+
+    			});
+      alert("DATOS GUARDADOS CORRECTAMENTE");
+    		}
+    	$scope.buscar=function()
+    	{
+    		$http.post('/buscar/cpu',
+    		{	'campo':$scope.campo,
+    			'operador':$scope.operador,
+    			'valor':$scope.valor,
+    			'accion':'buscar',
+    		}).then(function(response)
+    			{
+    				$scope.encs=response.data;
+    			});
+    	}
+
+
+    $scope.encs=function(id)
+    {
+    }
+
+    $scope.patrimonio=function()
+    {
+      $http.post('/patrimonio/cpu',
+      {
+        'accion':'persona',
+      }).then(function(response)
+        {
+          $scope.init3=response.data;
+           console.log($scope.init3);
+        });
+    }
+
+    	///eliminamos  $scope.removeRow(id);
+    	$scope.eliminar=function(id)
+    	{
+    		$http.post('/eliminar/cpu',
+    		{	'id':id,
+    			'accion':'eliminar',
+    		}).then(function(response)
+    			{
+    				 $scope.removeRow(id);
+    				alert("Eliminado :Los CPU relacionados en ordenador no se eliminaran");
+    			});
+    		}
+    	$scope.removeRow = function(id)
+    {  	var index = -1;
+    		var comArr = eval($scope.encs);
+    		for( var i = 0; i < comArr.length; i++ )
+    	{   if(comArr[i].id === id)
+    		{    index = i;
+    						 break;
+    				}
+    		}
+    	if( index === -1 )
+    			alert("Eliminado");
+    	else
+    			$scope.encs.splice(index, 1);
+    };
+    //  fin de la eliminacion
+    $scope.mostrarDatos1=function(data)
+    	{	d=data.split(",");
+    		$scope.id=d[0];
+        $scope.num_ip=d[1];
+        $scope.procesador=d[2];
+        $scope.nummac=d[3];
+        $scope.memram=d[4];
+        $scope.capalmac=d[5];
+        $scope.Patrimonio_id=d[6];
+    	};
+    })
+    .filter('startFromGrid', function() {
+      return function(input,start)
+    	{
+        start = +start;
+    		if(angular.isArray(input) && input.length > 0) {
+                 return input.slice(start);
+            }
+    				return input;
+      }
+    });
+
+
+    </script>
+
+    <script>
+    function myAccFunc() {
+      var x = document.getElementById("demoAcc");
+      if (x.className.indexOf("w3-show") == -1) {
+          x.className += " w3-show";
+          x.previousElementSibling.className += " w3-green";
+      } else {
+          x.className = x.className.replace(" w3-show", "");
+          x.previousElementSibling.className =
+          x.previousElementSibling.className.replace(" w3-green", "");
+      }
+    }
+    function myAccFunc2() {
+    var x = document.getElementById("demoAcc2");
+    if (x.className.indexOf("w3-show") == -1) {
+        x.className += " w3-show";
+        x.previousElementSibling.className += " w3-green";
+    } else {
+        x.className = x.className.replace(" w3-show", "");
+        x.previousElementSibling.className =
+        x.previousElementSibling.className.replace(" w3-green", "");
+    }
+    }
+
+    </script>
+
+    </body>
+
+</html>

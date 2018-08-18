@@ -1,0 +1,322 @@
+
+<html>
+<title>Graficos</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#d72525"><link rel="icon" type="image/png" href="/imgFiles/presentacion.png">
+<link rel="stylesheet" href="/cssFiles/estilos2.css">
+<!-- iconos-->
+<link rel="stylesheet" href='/cssFiles/iconos.min.css'>
+<link rel="stylesheet" href='/cssFiles/bootstrap.min.css'>
+<style>
+html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
+</style>
+<body class="w3-light-grey"  onload="getdata()">
+
+<!-- Top container -->
+<div class="w3-bar w3-top w3-black w3-large" style="z-index:4">
+  <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open();"><i class="fa fa-bars"></i>  Menu</button>&nbsp;&nbsp;&nbsp;Sistema de Ventas de Tienda
+  <span class="w3-bar-item w3-right"><form name='frmsalir' action='../controllers/cusuarios.php' method='post'><input type='hidden' name='accion' value='cerrarSesion'><a href='#' onclick='cerrarSesion()'>Salir</a>&nbsp;</form></span>
+</div>
+
+<!-- Sidebar/menu -->
+<nav class="w3-sidebar w3-collapse w3-white w3-animate-left" style="z-index:3;width:300px;" id="mySidebar"><br>
+  <div class="w3-container w3-row">
+    <div class="w3-col s4">
+			<!-- persona -->
+							<div class='col-sm-6'>&nbsp;<?=$img?><b style='font-size:13;'>
+							</div>
+							<div class='col-sm-6' style='text-align:right'>
+
+							</div>
+			<!-- persona -->
+    </div>
+    <div class="w3-col s8 w3-bar">
+      <span> Bienvenido</span><br>
+      <a href="#" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i></a>
+      <a href="#" class="w3-bar-item w3-button"><i class="fa fa-user"></i></a>
+      <a href="#" class="w3-bar-item w3-button"><i class="fa fa-cog"></i></a>
+
+    </div>
+
+  </div>
+  <hr>
+  <div class="w3-container">
+    <h5>opciones</h5>
+  </div>
+  <div class="w3-bar-block">
+    <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>  Close Menu</a>
+    <a href="http://localhost:3000/backend" class="w3-bar-item w3-button w3-padding"><i class="fa fa-users fa-fw"></i>Menu</a>
+    <a href="http://localhost:3000/cliente" class="w3-bar-item w3-button w3-padding"><i class="fa fa-eye fa-fw"></i>Clientes</a>
+    <a href="http://localhost:3000/proveedor" class="w3-bar-item w3-button w3-padding "><i class="fa fa-users fa-fw"></i>Proveedor</a>
+    <a href="http://localhost:3000/producto" class="w3-bar-item w3-button w3-padding"><i class="fa fa-bullseye fa-fw"></i>Producto</a>
+    <a href="http://localhost:3000/venta" class="w3-bar-item w3-button w3-padding "><i class="fa fa-diamond fa-fw"></i>Ventas</a>
+    <a href="http://localhost:3000/credito" class="w3-bar-item w3-button w3-padding"><i class="fa fa-bell fa-fw"></i>Credito</a>
+    <a href="http://localhost:3000/operador" class="w3-bar-item w3-button w3-padding "><i class="fa fa-bank fa-fw"></i>Operadores</a>
+      <a href="http://localhost:3000/recarga" class="w3-bar-item w3-button w3-padding"><i class="fa fa-history fa-fw"></i>Recarga Virtual</a>
+    <a href="http://localhost:3000/graficos" class="w3-bar-item w3-button w3-padding "><i class="fa fa-cog fa-fw"></i> Reportes</a>
+    <a href="http://localhost:3000/graficos1" class="w3-bar-item w3-button "></i> Reportes 1</a>
+    <a href="http://localhost:3000/graficos2" class="w3-bar-item w3-button  w3-lime  "></i> Reportes 2</a>
+    <a href="http://localhost:3000/graficos3" class="w3-bar-item w3-button  "></i> Reportes 3</a>
+    <a href="http://localhost:3000/pedidos" class="w3-bar-item w3-button w3-padding "><i class="fa fa-cog fa-fw"></i> pedidos</a>
+  </div>
+</nav>
+
+
+<!-- Overlay effect when opening sidebar on small screens -->
+<div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+<!-- !PAGE CONTENT! -->
+<div class="w3-main" style="margin-left:300px;margin-top:43px;">
+
+  <!-- Header -->
+
+
+  <!-- Footer -->
+  <footer class="w3-container w3-padding-16 w3-light-grey">
+		<!--MI CODIGO-->
+	<script src="/javas/highcharts.js"></script>
+	<script src="/javas/exporting.js"></script>
+  <script src="/javas/data.js"></script>
+  <script src="/javas/drilldown.js"></script>
+
+
+
+  <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+
+
+  		<script type="text/javascript">
+var p;
+var a;
+function getdata()
+{
+  $.ajax({
+    type:'post',
+    url:'/graficos2/ganancia',
+    dataType:'json',
+    success:function(html)
+    {
+
+      seldata(html);
+    }
+
+  });
+}
+
+function seldata(p)
+{
+na=p.length;
+ss=[]
+ll=[]
+for(i=0;i<na;i++)
+{
+  ss=p[i].total;
+  ll[i]=p[i].descrip1;
+
+}
+dibujar(ss,ll)
+
+}
+
+  function dibujar(prod,cant){
+    console.log(cant)
+  Highcharts.chart('container', {
+      chart: {
+          type: 'column'
+      },
+      title: {
+          text: 'REPORTE DE PRODUCTOS CUANTO RECOLECTA DE DINERO POR PRODUCTO'
+      },
+
+      xAxis: {
+          type: 'category'
+      },
+      yAxis: {
+          title: {
+              text: 'Dinero'
+          }
+
+      },
+      legend: {
+          enabled: false
+      },
+      plotOptions: {
+          series: {
+              borderWidth: 0,
+              dataLabels: {
+                  enabled: true,
+                  format: 'S/.{point.y:.1f}'
+              }
+          }
+      },
+
+      tooltip: {
+          headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+          pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f} Soles</b>   Cantidad Invertida<br/>'
+      },
+
+      series: [{
+          name: 'Dinero',
+          colorByPoint: true,
+          data: [{
+              name: cant,
+              y:  prod
+
+          }, {
+            name: 'Pura Vida',
+            y: 24.00,
+
+        }, {
+            name: 'Don Antonio',
+            y: 12.00,
+
+        }, {
+            name: 'Kola Real Negra',
+            y: 13.00,
+
+        }, {
+            name: 'Sline Limon',
+            y: 7.00,
+
+        },{
+            name: 'Maltin Power',
+            y: 4.00,
+
+        },{
+            name: 'Poett Primavera',
+            y: 10.00,
+
+        },{
+            name: 'Anchor',
+            y: 2.40,
+
+        },{
+            name: 'Agua San Mateo',
+            y: 6.80,
+
+        },{
+            name: 'Chicha Morada Gloria',
+            y: 4.00,
+
+        },{
+            name: 'Yogurt Fresa',
+            y: 5.00,
+
+        },{
+            name: 'Power Ade Multifrutas',
+            y: 3.60,
+
+        },{
+            name: 'Aquarius Pera',
+            y: 3.00,
+
+        },{
+            name: 'Cusqueña Dorada',
+            y: 30.00,
+
+        },{
+            name: 'Inca Kola',
+            y: 45.00,
+
+        },{
+            name: 'Ace',
+            y: 60.00,
+
+        }]
+      }],
+
+  });
+
+}
+  		</script>
+
+	<script>
+	// Get the Sidebar
+	var mySidebar = document.getElementById("mySidebar");
+
+	// Get the DIV with overlay effect
+	var overlayBg = document.getElementById("myOverlay");
+
+	// Toggle between showing and hiding the sidebar, and add overlay effect
+	function w3_open() {
+	    if (mySidebar.style.display === 'block') {
+	        mySidebar.style.display = 'none';
+	        overlayBg.style.display = "none";
+	    } else {
+	        mySidebar.style.display = 'block';
+	        overlayBg.style.display = "block";
+	    }
+	}
+
+	// Close the sidebar with the close button
+	function w3_close() {
+	    mySidebar.style.display = "none";
+	    overlayBg.style.display = "none";
+	}
+	</script>
+
+
+  <script src='/javas/jquery-2.1.4.min.js'></script>
+    <script src="/angularjs/angular.min.js"></script>
+    <h1>Tabla De Ganancias</h1>
+    <form ng-app="app" ng-controller="frmproducto" ng-init="id=0;campo='descripcion';operador='LIKE';valor=''">
+    <input type="text" ng-model="valor" value="" size='30'/>
+    <button class='btn btn-default w3-animate-zoom' ng-click="buscar();">Buscar</button>
+    <table   class=' w3-animate-zoom  table table-bordered table-hover'  >
+      <tr><th>No</th><th>Descripcion</th><th>precio</th><th>stock</th><th>Dinero Invertido</th><th>Dinero Obtencion</th><th>Ganancia</th></tr>
+            <tr ng-repeat="x in encs "  >
+                    <th>{{$index+1}}</th>
+                    <td>{{x.descripcion}}</td>
+                    <td>S/.{{x.precioad}}</td>
+                    <td>{{x.stock}}</td>
+                    <td ng-init="$parent.total = $parent.total + (x.resultado1)">S/.{{x.resultado1}} </td>
+                      <td ng-init="$parent.total1 = $parent.total1 + (x.resultado2)">S/.{{x.resultado2}} </td>
+                       <td ng-init="$parent.total2 = $parent.total2 + (x.resultado2-x.resultado1)">S/.{{x.resultado2 - x.resultado1 | number:2 }}</td>
+
+
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td><b>TOTAL</b></td>
+              <td><b>S/.{{total | number:2}} Nuevos Soles</b></td>
+              <td><b>S/.{{total1 | number:2}} Nuevos Soles</b></td>
+              <td><b>S/.{{total2 | number:2}} Nuevos Soles</b></td>
+            </tr>
+
+    </table>
+    </form>
+    <script type="text/javascript">
+
+    var app = angular.module("app", []);
+    app.controller("frmproducto",   function($scope,$http)
+    {
+    	$scope.formData = {};
+
+
+    	$scope.reload = function()
+    {
+       location.reload();
+    }
+
+    $scope.submitForm = function (formData) {
+    	alert('Form submitted with' + JSON.stringify(formData));
+    };
+
+    	$scope.buscar=function()
+    	{
+    		$http.post('/graficos2/buscar',
+    		{	'campo':$scope.campo,
+    			'operador':$scope.operador,
+    			'valor':$scope.valor,
+    			'accion':'buscar',
+    		}).then(function(response)
+    			{
+    				$scope.encs=response.data;
+    			});
+    	}
+    })
+    </script>
+</div>
+</body>

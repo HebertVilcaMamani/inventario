@@ -1,0 +1,409 @@
+
+<html>
+<title>Clientes</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#d72525"><link rel="icon" type="image/png" href="/imgFiles/presentacion.png">
+<link rel="stylesheet" href="/cssFiles/estilos2.css">
+<!-- iconos-->
+<link rel="stylesheet" href='/cssFiles/iconos.min.css'>
+<link rel="stylesheet" href='/cssFiles/bootstrap.min.css'>
+
+<style>
+html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
+</style>
+<body class="w3-light-grey">
+
+<!-- Top container -->
+<div class="w3-bar w3-top w3-black w3-large" style="z-index:4">
+  <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open();"><i class="fa fa-bars"></i>  Menu</button>&nbsp;&nbsp;&nbsp;Sistema de Ventas de Tienda
+  <span class="w3-bar-item w3-right"><form name='frmsalir' action='../controllers/cusuarios.php' method='post'><input type='hidden' name='accion' value='cerrarSesion'><a href='http://localhost:3000/logout' >Salir</a>&nbsp;</form></span>
+</div>
+
+<!-- Sidebar/menu -->
+<nav class="w3-sidebar w3-collapse w3-white w3-animate-left" style="z-index:3;width:300px;" id="mySidebar"><br>
+  <div class="w3-container w3-row">
+    <div class="w3-col s4">
+			<!-- persona -->
+							<div class='col-sm-6'>&nbsp;<b style='font-size:13;'>
+							</div>
+							<div class='col-sm-6' style='text-align:right'>
+
+							</div>
+			<!-- persona -->
+    </div>
+    <div class="w3-col s8 w3-bar">
+      <span> Bienvenido <h1><%=data.usuario.username%></h1> </span><br>
+      <a href="#" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i></a>
+      <a href="#" class="w3-bar-item w3-button"><i class="fa fa-user"></i></a>
+      <a href="#" class="w3-bar-item w3-button"><i class="fa fa-cog"></i></a>
+
+    </div>
+
+  </div>
+  <hr>
+  <div class="w3-container">
+    <h5>Dashboard</h5>
+  </div>
+  <div class="w3-bar-block">
+    <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>  Close Menu</a>
+    <a href="http://localhost:3000/backend" class="w3-bar-item w3-button w3-padding"><i class="fa fa-users fa-fw"></i>Menu</a>
+    <a href="http://localhost:3000/cliente" class="w3-bar-item w3-button w3-padding w3-lime"><i class="fa fa-eye fa-fw"></i>Clientes</a>
+    <a href="http://localhost:3000/proveedor" class="w3-bar-item w3-button w3-padding"><i class="fa fa-users fa-fw"></i>Proveedor</a>
+    <a href="http://localhost:3000/producto" class="w3-bar-item w3-button w3-padding"><i class="fa fa-bullseye fa-fw"></i>Producto</a>
+    <a href="http://localhost:3000/venta" class="w3-bar-item w3-button w3-padding"><i class="fa fa-diamond fa-fw"></i>Ventas</a>
+		<a href="http://localhost:3000/credito" class="w3-bar-item w3-button w3-padding"><i class="fa fa-bell fa-fw"></i>Credito</a>
+    <a href="http://localhost:3000/operador" class="w3-bar-item w3-button w3-padding "><i class="fa fa-bank fa-fw"></i>Operadores</a>
+    <a href="http://localhost:3000/recarga" class="w3-bar-item w3-button w3-padding"><i class="fa fa-history fa-fw"></i>Recarga Virtual</a>
+    <a href="http://localhost:3000/graficos" class="w3-bar-item w3-button w3-padding "><i class="fa fa-cog fa-fw"></i> Reportes</a>
+    <a href="http://localhost:3000/pedidos" class="w3-bar-item w3-button w3-padding "><i class="fa fa-cog fa-fw"></i> pedidos</a>
+  </div>
+</nav>
+
+
+<!-- Overlay effect when opening sidebar on small screens -->
+<div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+<!-- !PAGE CONTENT! -->
+<div class="w3-main" style="margin-left:300px;margin-top:43px;">
+
+  <!-- Header -->
+
+
+  <!-- Footer -->
+  <footer class="w3-container w3-padding-16 w3-light-grey">
+		<!--MI CODIGO-->
+
+
+		<body ng-cloack>
+			<form ng-app="app" ng-controller="frmcliente" ng-init="id=0;campo='dni';operador='LIKE';valor=''"  name='exampleForm' novalidate>
+      <div class='container' style="width: 100%">
+				<div class='row'>
+					<div class='col-xs-3'>
+						<div style="width: 100%;margin: 1px auto">
+				<div class='row space'>
+					<label ></label>{{id}}
+					</div>
+					<div class='row space'>
+			<label for="">DNI</label>
+		<input type='text' ng-model="dni" class="form-control w3-animate-zoom "
+		placeholder='ingrese el dni' name='dni'
+		required   ng-class='{ error: exampleForm.dni.$invalid && !exampleForm.$pristine }' >
+<button ng-click='buscarDNI()' class='btn btn-default'><span class="fa fa-search"></span></button>
+			<span  ng-show=' exampleForm.dni.$error.required '><p> Ingrese Datos en el campo</p></span>
+	</div>
+	<div class='row space'>
+<label for="">Apellidos</label>
+<input type='text' ng-model="apellidos" class="form-control w3-animate-zoom"
+placeholder='ingrese sus apellidos' name='apellidos'
+required   ng-class='{ error: exampleForm.Apellidos.$invalid && !exampleForm.$pristine }' >
+<span  ng-show=' exampleForm.apellidos.$error.required '><p> Ingrese Datos en el campo</p></span>
+</div>
+<div class='row space'>
+<label for="">Nombres</label>
+<input type='text' ng-model="nombres" class="form-control w3-animate-zoom"
+placeholder='ingrese el nombre' name='nombres'
+required   ng-class='{ error: exampleForm.nombres.$invalid && !exampleForm.$pristine }' >
+<span  ng-show=' exampleForm.nombres.$error.required '><p> Ingrese Datos en el campo</p></span>
+</div>
+<div class='row space'>
+<label for="">Fecha Nacimiento</label>
+<input type="date" ng-model="fechanac" class="form-control w3-animate-zoom"
+placeholder='ingrese la fecha de nacimiento' name='fechanac'
+required   ng-class='{ error: exampleForm.fechanac.$invalid && !exampleForm.$pristine }' >
+<span  ng-show=' exampleForm.fechanac.$error.required '><p> Ingrese Datos en el campo</p></span>
+</div>
+<div class='row space'>
+<label for="">Email</label>
+<input type='text' ng-model="email" class="form-control w3-animate-zoom"
+placeholder='ingrese el email' name='email'
+required   ng-class='{ error: exampleForm.email.$invalid && !exampleForm.$pristine }' >
+<span  ng-show=' exampleForm.email.$error.required '><p> Ingrese Datos en el campo</p></span>
+</div>
+<div class='row space'>
+<label for="">sexo</label>
+<select  ng-model="sexo" class="form-control w3-animate-zoom" name='sexo'
+required   ng-class='{ error: exampleForm.sexo.$invalid && !exampleForm.$pristine }' >
+  <option>Femenino</option>
+  <option >Masculino</option>
+</select>
+<span  ng-show=' exampleForm.sexo.$error.required '><p> Ingrese Datos en el campo</p></span>
+</div>
+
+<div class='row space'>
+            <button class='btn btn-info' ng-click='reload()'><span class='fa fa-plus-circle'></span></button>
+            <button class='btn btn-success' ng-click='guardar()' ng-disabled='!exampleForm.$valid'>Guardar</button>
+            <button class='btn btn-danger' ng-click="eliminar(id);" ng-disabled='!exampleForm.$valid' >Eliminar</button>
+        </div>
+		    </div>
+				</div>
+
+				<div>
+
+					</div>
+				<div class='col-xs-9'>
+				<div class='row space' >
+					<div class='col-sm-12'>
+						<table class='table'>
+							<tr>
+								<th>
+	        <select ng-model="campo" class="form-control w3-animate-zoom">
+	         	<option value="dni">Dni</option>
+						<option value="apellidos">Apellidos</option>
+						<option value="nombres">Nombres</option>
+						<option value="fechanac">Fecha Nacimiento</option>
+						<option value="email">Email</option>
+
+
+	        </select>
+				</th>
+			<th>
+	        <select ng-model="operador" class="form-control w3-animate-zoom">
+	           	<option value="LIKE" selected>Similar</option>
+	            <option value="=">Igual</option>
+	            <option value=">">Mayor</option>
+	            <option value="<">Menor..</option>
+	        </select>
+
+				</th>
+
+			<th>
+	            <input type="text" ng-model="valor" value="" size='30'/>
+								<button class='btn btn-default w3-animate-zoom' ng-click="buscar();">Buscar</button>
+						</th>
+
+			</th>
+			</tr>
+				</table>
+
+	        </input>
+
+          <table   class='table table-bordered table-hover w3-animate-zoom' ng-init='configPages()' >
+        		<tr><th>No</th><th>DNI</th><th>apellidos</th><th>Nombres</th><th>Fecha Nacimiento</th><th>Email</th><th>Sexo</th></tr>
+        				  <tr ng-repeat="x in encs | startFromGrid: currentPage * pageSize | limitTo: pageSize"  >
+        				          <th>{{$index+1}}</th>
+        	                <td>{{x.dni}}</td>
+        	                <td>{{x.apellidos}}</td>
+        	                <td>{{x.nombres}}</td>
+        									<td>{{x.fechanac}}</td>
+        									<td>{{x.email}}</td>
+        									<td>{{x.sexo}}</td>
+        	                <td><input type="button" class="btn btn-info" ng-click="cad=x.id+','+x.dni+','+x.apellidos+','+x.nombres+','+x.fechanac+','+x.email+','+x.sexo; mostrarDatos1(cad);" value="Ver">
+        	                <button class="btn btn-danger"  ng-click="eliminar(x.id);"><span class="fa fa-trash-o"></span></button>
+        	                </td>
+        								<tr>
+        									<td></td>
+        								</tr>
+
+        				  </tr>
+
+        	</table>
+	<center>
+	<div class='btn-group'>
+					<button type='button' class='btn btn-default' ng-disabled='currentPage == 0' ng-click='currentPage = currentPage - 1'>&laquo;</button>
+					<button type='button' class='btn btn-default' ng-disabled='currentPage == page.no - 1' ng-click='setPage(page.no)' ng-repeat='page in pages'>{{page.no}}</button>
+					<button type='button' class='btn btn-default' ng-disabled='currentPage >= encs.length/pageSize - 1' , ng-click='currentPage = currentPage + 1'>&raquo;</button>
+				</div>
+	</center>
+	</div>
+		</div>
+		</div>
+		</div>
+		</div>
+
+		</form>
+
+		<!--FIN DE MI CODIGO-->
+  </footer>
+	<script>
+	// Get the Sidebar
+	var mySidebar = document.getElementById("mySidebar");
+
+	// Get the DIV with overlay effect
+	var overlayBg = document.getElementById("myOverlay");
+
+	// Toggle between showing and hiding the sidebar, and add overlay effect
+	function w3_open() {
+	    if (mySidebar.style.display === 'block') {
+	        mySidebar.style.display = 'none';
+	        overlayBg.style.display = "none";
+	    } else {
+	        mySidebar.style.display = 'block';
+	        overlayBg.style.display = "block";
+	    }
+	}
+
+	// Close the sidebar with the close button
+	function w3_close() {
+	    mySidebar.style.display = "none";
+	    overlayBg.style.display = "none";
+	}
+	</script>
+  <!-- End page content -->
+</div>
+<script src="/angularjs/angular.min.js"></script>
+<script src="/javas/jquery-2.1.4.min.js"></script>
+<script type="text/javascript">
+var app = angular.module("app", []);
+app.controller("frmcliente",   function($scope,$http)
+{
+	$scope.formData = {};
+	$scope.currentPage = 0;
+  $scope.pageSize = 10; //  tamño de la Pagina
+  $scope.pages = [];
+
+	$scope.reload = function()
+{
+   location.reload();
+}
+
+
+$scope.configPages = function() {
+			$scope.pages.length = 0;
+			var ini = $scope.currentPage - 4;
+			var fin = $scope.currentPage + 5;
+			if (ini < 1) {
+				ini = 1;
+				if (Math.ceil($scope.encs.length / $scope.pageSize) > 10)
+					fin = 10;
+				else
+					fin = Math.ceil($scope.encs.length / $scope.pageSize);
+			} else {
+				if (ini >= Math.ceil($scope.encs.length / $scope.pageSize) - 10) {
+					ini = Math.ceil($scope.encs.length / $scope.pageSize) - 10;
+					fin = Math.ceil($scope.encs.length / $scope.pageSize);
+				}
+			}
+			if (ini < 1) ini = 1;
+			for (var i = ini; i <= fin; i++) {
+				$scope.pages.push({
+					no: i
+				});
+			}
+
+			if ($scope.currentPage >= $scope.pages.length)
+				$scope.currentPage = $scope.pages.length - 1;
+		};
+
+		$scope.setPage = function(index) {
+			$scope.currentPage = index - 1;
+		};
+
+//alertas
+function AlertsCtrl($scope, alertsManager) {
+    $scope.alerts = alertsManager.alerts;
+}
+
+//fin alertas
+$scope.submitForm = function (formData) {
+	alert('Form submitted with' + JSON.stringify(formData));
+};
+ var alerta="Datos Guardados Correctamente";
+	$scope.guardar=function(){
+    id=$scope.id,
+    url='/guardado/cliente';
+      if (id>0) {
+        url='/update/cliente';
+      };
+    $http.post(url,
+		{
+			'id':id,
+			'dni':$scope.dni,
+			'apellidos':$scope.apellidos,
+			'nombres':$scope.nombres,
+			'fechanac':$scope.fechanac,
+			'email':$scope.email,
+      'sexo':$scope.sexo,
+		})
+    .then(function(response)
+			{
+				alert(alerta);
+			});
+
+		}
+	$scope.buscar=function()
+	{
+		$http.post('/buscar/cliente',
+		{	'campo':$scope.campo,
+			'operador':$scope.operador,
+			'valor':$scope.valor,
+			'accion':'buscar',
+		}).then(function(response)
+			{
+				$scope.encs=response.data;
+			});
+	}
+$scope.encs=function(id,dni,apellidos,nombres,fechanac,email,sexo)
+{
+}
+	$scope.buscarDNI=function(datos)
+	{	$http.post('/buscarDNI/cliente',
+		{	'dni':$scope.dni,
+			'accion':'buscarDNI',
+		}).then(function(response)
+		{
+		 $scope.id=response.data[0][0];
+		 $scope.dni=response.data[0][1];
+		 $scope.apellidos=response.data[0][2];
+		 $scope.nombres=response.data[0][3];
+		 $scope.fechanac=response.data[0][4];
+		 $scope.email=response.data[0][5];
+		 $scope.sexo=response.data[0][6];
+
+	 });
+
+	}
+	///eliminamos  $scope.removeRow(id);
+	$scope.eliminar=function(id)
+	{
+		$http.post('/eliminar/cliente',
+		{	'id':id,
+			'accion':'eliminar',
+		}).then(function(response)
+			{
+				 $scope.removeRow(id);
+				alert(response.data);
+			});
+		}
+	$scope.removeRow = function(id)
+{  	var index = -1;
+		var comArr = eval($scope.encs);
+		for( var i = 0; i < comArr.length; i++ )
+	{   if(comArr[i].id === id)
+		{    index = i;
+						 break;
+				}
+		}
+	if( index === -1 )
+			alert("Eliminado");
+	else
+			$scope.encs.splice(index, 1);
+};
+//  fin de la eliminacion
+$scope.mostrarDatos1=function(data)
+	{	d=data.split(",");
+		$scope.id=d[0];
+		$scope.dni=d[1];
+		$scope.apellidos=d[2];
+		$scope.nombres=d[3];
+		$scope.fechanac=new Date(d[4]);
+		$scope.email=d[5];
+		$scope.sexo=d[6];
+
+	};
+})
+.filter('startFromGrid', function() {
+  return function(input,start)
+	{
+    start = +start;
+		if(angular.isArray(input) && input.length > 0) {
+             return input.slice(start);
+        }
+				return input;
+  }
+});
+
+
+</script>
+</body>
+</html>

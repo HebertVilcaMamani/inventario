@@ -1,0 +1,264 @@
+<html>
+<title>Principal</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#d72525"><link rel="icon" type="image/png" href="/imgFiles/presentacion.png">
+
+<link rel="stylesheet"  href="/cssFiles/style.css">
+
+<!-- iconos-->
+<link rel="stylesheet" href='/cssFiles/iconos.min.css'>
+<style>
+html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
+</style>
+<body class="w3-light-grey" onload="usuarios()">
+
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.2.61/jspdf.debug.js"></script>
+<script type="text/javascript" src="//code.jquery.com/jquery-compat-git.js"></script>
+  <script src='/javas/jquery-2.1.4.min.js'></script>
+
+
+<!-- Top container -->
+<div class="w3-bar w3-top w3-black w3-large" style="z-index:4">
+  <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open();"><i class="fa fa-bars"></i>  Menu</button>&nbsp;&nbsp;&nbsp;Sistema de Inventarios
+  <span class="w3-bar-item w3-right"><a href='http://192.168.2.12:3000/logout' >Salir</a>&nbsp; </span>
+</div>
+
+<!-- Sidebar/menu -->
+<nav class="w3-sidebar w3-collapse w3-white w3-animate-left" style="z-index:3;width:175px;" id="mySidebar"><br>
+  <div class="w3-container w3-row">
+    <div class="w3-col s4">
+			<!-- persona -->
+
+
+			<!-- persona -->
+    </div>
+    <div class="w3-col s8 w3-bar">
+      <span>  Bienvenido <h5><%=data.usuario.username%></h5></span><br>
+      <a href="mailto:hebert_2100@hotmail.com?Subject=Hola%20Hebert" target="_top"class="w3-bar-item w3-button"><i class="fa fa-envelope"></i></a>
+      <a href="http://192.168.2.12:3000/registro" class="w3-bar-item w3-button"><i class="fa fa-user"></i></a>
+      <a href="#" class="w3-bar-item w3-button"><i class="fa fa-cog"></i></a>
+    </div>
+  </div>
+  <hr>
+  <div class="w3-container">
+    <h5>Menu</h5>
+  </div>
+  <div class="w3-bar-block">
+  <div class="w3-bar-item w3-button" onclick="myAccFunc()">
+ COMPUTADORA<i class="fa fa-caret-down"></i></div>
+ <div id="demoAcc" class="w3-hide w3-white w3-card-4">
+   <a href="http://192.168.2.12:3000/ordenador" class="w3-bar-item w3-button">ORDENADOR</a>
+   <a href="http://192.168.2.12:3000/cpu" class="w3-bar-item w3-button">CPU</a>
+   <a href="http://192.168.2.12:3000/monitor" class="w3-bar-item w3-button">MONITOR</a>
+   <a href="http://192.168.2.12:3000/teclado" class="w3-bar-item w3-button">TECLADO</a>
+
+ </div>
+<br>
+ <div class="w3-bar-item w3-button" onclick="myAccFunc2()">
+PATRIMONIO<i class="fa fa-caret-down"></i></div>
+<div id="demoAcc2" class="w3-hide w3-white w3-card-4">
+  <a href="http://192.168.2.12:3000/patrimonio" class="w3-bar-item w3-button">AGREGAR</a>
+  <a href="http://192.168.2.12:3000/formpatrim" class="w3-bar-item w3-button">FORMATO PATRIMONIO</a>
+</div>
+  </div>
+</nav>
+
+
+<!-- Overlay effect when opening sidebar on small screens -->
+<div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+<!-- !PAGE CONTENT! -->
+<div class="w3-main" style="margin-left:300px;margin-top:43px;">
+
+  <!-- Header -->
+  <header class="w3-container" style="padding-top:22px">
+    <h5><b><i class="fa fa-dashboard"></i>   Mi Menu</b></h5>
+    <input type="submit" class="w3-animate-zoom  w3-teal w3-padding-16"  onclick = "location='http://192.168.2.12:3000/registro'" value="Registre Un Nuevo Usuario"/>&nbsp&nbsp<i class="fa fa-user-circle-o w3-xxxlarge"></i>
+
+  </header>
+<br><br><br>
+  <!-- PARTE PDF -->
+<!--<div id="customers">
+    <table id="tab_customers" class="table table-striped">
+        <colgroup>
+            <col width="20%">
+                <col width="20%">
+                    <col width="20%">
+                        <col width="20%">
+        </colgroup>
+        <thead>
+            <tr class='warning'>
+                <th>pruebas</th>
+                <th>pruebas</th>
+                <th>pruebas</th>
+                <th>pruebas</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>pruebas</td>
+                <td>pruebas</td>
+                <td>pruebas</td>
+                <td>pruebas</td>
+            </tr>
+            <tr>
+                <td>pruebas</td>
+                <td>pruebas</td>
+                <td>pruebas</td>
+                <td>pruebas</td>
+            </tr>
+            <tr>
+                <td>pruebas</td>
+                <td>pruebas</td>
+                <td>pruebas</td>
+                <td>pruebas</td>
+            </tr>
+            <tr>
+                <td>pruebas</td>
+                <td>pruebas</td>
+                <td>pruebas</td>
+                <td>pruebas</td>
+            </tr>
+            <tr>
+                <td>pruebas</td>
+                <td>pruebas</td>
+                <td>pruebas</td>
+                <td>pruebas</td>
+            </tr>
+        </tbody>
+    </table>
+</div>-->
+
+    <table border="2">
+    <tr id='cusuarios'></tr>
+
+    </table>
+
+
+<!--<button onclick="javascript:demoFromHTML();">PDF</button> -->
+  <!-- FIN PARTE PDF -->
+  <!-- Footer -->
+  <footer class="w3-container w3-padding-16 w3-light-grey">
+
+
+  </footer>
+  <script>
+  function myAccFunc() {
+    var x = document.getElementById("demoAcc");
+    if (x.className.indexOf("w3-show") == -1) {
+        x.className += " w3-show";
+        x.previousElementSibling.className += " w3-green";
+    } else {
+        x.className = x.className.replace(" w3-show", "");
+        x.previousElementSibling.className =
+        x.previousElementSibling.className.replace(" w3-green", "");
+    }
+}
+function myAccFunc2() {
+  var x = document.getElementById("demoAcc2");
+  if (x.className.indexOf("w3-show") == -1) {
+      x.className += " w3-show";
+      x.previousElementSibling.className += " w3-green";
+  } else {
+      x.className = x.className.replace(" w3-show", "");
+      x.previousElementSibling.className =
+      x.previousElementSibling.className.replace(" w3-green", "");
+  }
+}
+
+  </script>
+	<script>
+	// Get the Sidebar
+	var mySidebar = document.getElementById("mySidebar");
+
+	// Get the DIV with overlay effect
+	var overlayBg = document.getElementById("myOverlay");
+
+	// Toggle between showing and hiding the sidebar, and add overlay effect
+	function w3_open() {
+	    if (mySidebar.style.display === 'block') {
+	        mySidebar.style.display = 'none';
+	        overlayBg.style.display = "none";
+	    } else {
+	        mySidebar.style.display = 'block';
+	        overlayBg.style.display = "block";
+	    }
+	}
+
+	// Close the sidebar with the close button
+	function w3_close() {
+	    mySidebar.style.display = "none";
+	    overlayBg.style.display = "none";
+	}
+	</script>
+
+<script type="text/javascript">
+var p;
+function usuarios()
+{
+  $.ajax({
+    type:'post',
+    url:'/usuarios/back',
+    dataType:'json',
+    data:'accion=usuarios',
+    success:function(html)
+    {
+   alert(html)
+      selusuario(html);
+    }
+
+  });
+}
+function selusuario(p)
+{
+na=p.length;
+html="<table><h1>";
+for(i=0;i<na;i++)
+{
+  html+=p[i].total+"<br>";
+}
+html+="</h1></table>";
+$('#cusuarios').html(html);
+
+}
+function demoFromHTML() {
+  var pdf = new jsPDF('p', 'pt', 'letter');
+
+  source = $('#customers')[0];
+
+  specialElementHandlers = {
+      // element with id of "bypass" - jQuery style selector
+      '#bypassme': function (element, renderer) {
+          // true = "handled elsewhere, bypass text extraction"
+          return true
+      }
+  };
+  margins = {
+      top: 80,
+      bottom: 60,
+      left: 40,
+      width: 522
+  };
+
+  pdf.fromHTML(
+  source, // HTML string or DOM elem ref.
+  margins.left, // x coord
+  margins.top, { // y coord
+      'width': margins.width,
+      'elementHandlers': specialElementHandlers
+  },
+
+  function (dispose) {
+      pdf.save('Test.pdf');
+  }, margins);
+}
+</script>
+
+  <!-- End page content -->
+</div>
+
+</body>
+
+</html>

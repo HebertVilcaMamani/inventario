@@ -1,0 +1,281 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Categorias</title>
+  </head>
+  <link rel="stylesheet" href="/cssFiles/estilos2.css">
+  <link rel="stylesheet" href='/cssFiles/iconos.min.css'>
+  <link rel="stylesheet" href='/cssFiles/bootstrap.min.css'>
+  <body>
+    <div style="display: block;padding: 20px;margin: 0;background-color:#AAB7B8  ;color:white">
+      <center><h1>REGISTRO DE MONITOR</h1></center>
+    </div>
+  <i class="fa fa-arrow-left w3-xxxlarge"></i> <br>
+
+<input type="submit" class="w3-animate-zoom  w3-aqua w3-padding-16 "  onclick = "location='http://localhost:3000/producto'" value="REGRESAR A ORDENADOR "> </input>
+    <form ng-app="app" ng-controller="frmcategoria" ng-init="id=0;operador='LIKE';valor=''"  name='exampleForm' novalidate>
+    <div class='container' style="width: 98%">
+      <div class='row'>
+        <div class='col-xs-3'>
+          <div style="width: 60%;margin: 1px auto">
+      <div class='row space'>
+        <label ></label>{{id}}
+        </div>
+        <div class='row space'>
+    <label for="">Descripcion</label>
+  <input type='text' ng-model="descripcion" class="form-control w3-animate-zoom "
+  placeholder='ingrese la descripcion' name='descripcion'
+  required   ng-class='{ error: exampleForm.descripcion.$invalid && !exampleForm.$pristine }' >
+    <span  ng-show=' exampleForm.descripcion.$error.required '><p> Ingrese Datos en el campo</p></span>
+</div>
+ <div class='row space'>
+    <label for="">Modelo Monitor</label>
+  <input type='text' ng-model="mod_monitor" class="form-control w3-animate-zoom "
+  placeholder='modelo de monitor' name='mod_monitor'
+  required   ng-class='{ error: exampleForm.mod_monitor.$invalid && !exampleForm.$pristine }' >
+    <span  ng-show=' exampleForm.mod_monitor.$error.required '><p> Ingrese Datos en el campo</p></span>
+</div>
+<div class='row space'>
+    <label for="">Codigo Patrimonio</label>
+  <input type='text' ng-model="cod_patrim" class="form-control w3-animate-zoom "
+  placeholder='modelo de monitor' name='cod_patrim'
+  required   ng-class='{ error: exampleForm.cod_patrim.$invalid && !exampleForm.$pristine }' >
+    <span  ng-show=' exampleForm.cod_patrim.$error.required '><p> Ingrese Datos en el campo</p></span>
+</div>
+<div class='row space'>
+    <label for="">Numero de Serie</label>
+  <input type='text' ng-model="num_serie" class="form-control w3-animate-zoom "
+  placeholder='modelo de monitor' name='num_serie'
+  required   ng-class='{ error: exampleForm.num_serie.$invalid && !exampleForm.$pristine }' >
+    <span  ng-show=' exampleForm.num_serie.$error.required '><p> Ingrese Datos en el campo</p></span>
+</div>
+<div class='row space'>
+          <button class='btn btn-info' ng-click='reload()'><span class='fa fa-plus-circle'></span></button>
+          <button class='btn btn-success' ng-click='guardar()' ng-disabled='!exampleForm.$valid'>Guardar</button>
+          <button class='btn btn-danger' ng-click="eliminar(id);" ng-disabled='!exampleForm.$valid' >Eliminar</button>
+      </div>
+
+      </div>
+
+      </div>
+
+      <div>
+
+        </div>
+      <div class='col-xs-9'>
+      <div class='row space' >
+        <div class='col-sm-12'>
+          <table class='table'>
+            <tr>
+              <th>
+        <select ng-model="campo" class="form-control w3-animate-zoom">
+          <option value="Nombre">Categoria</option>
+
+
+
+        </select>
+      </th>
+    <th>
+        <select ng-model="operador" class="form-control w3-animate-zoom">
+            <option value="LIKE" selected>Similar</option>
+        </select>
+
+      </th>
+
+    <th>
+            <input type="text" ng-model="valor" value="" size='30'/>
+              <button class='btn btn-default w3-animate-zoom' ng-click="buscar();">Buscar</button>
+          </th>
+
+    </th>
+    </tr>
+      </table>
+
+        </input>
+
+        <table   class='table table-bordered  w3-animate-zoom' ng-init='configPages()' >
+          <tr><th>No</th><th>Descripcion</th><th>Modelo Monitor</th><th>Codigo Patrimonio</th><th>Nº serie</th></tr>
+                <tr ng-repeat="x in encs | startFromGrid: currentPage * pageSize | limitTo: pageSize"  >
+                        <th>{{$index+1}}</th>
+                        <td>{{x.descripcion}}</td>
+                        <td>{{x.mod_monitor}}</td>
+                        <td>{{x.cod_patrim}}</td>
+                        <td>{{x.num_serie}}</td>
+
+                        <td><input type="button" class="btn btn-info" ng-click="cad=x.id+','+x.descripcion+','+x.mod_monitor+','+x.cod_patrim+','+x.num_serie'; mostrarDatos1(cad);" value="Ver">
+                        <button class="btn btn-danger"  ng-click="eliminar(x.id);"><span class="fa fa-trash-o"></span></button>
+                        </td>
+                      <tr>
+                        <td></td>
+                      </tr>
+
+                </tr>
+
+        </table>
+        <div class="w3-quarter w3-animate-zoom">
+          <div class="w3-container w3-aqua w3-padding-16">
+            <div class="w3-left"><i class="fa fa-tags w3-xxxlarge"></i></div>
+            <div class="w3-right">
+              <center><h1><div  id='ccategoria'></div></h1></center>
+            </div>
+            <div class="w3-clear"></div>
+            <h4>Monitores Registrados</h4>
+          </div>
+        </div>
+<center>
+<div class='btn-group'>
+        <button type='button' class='btn btn-default' ng-disabled='currentPage == 0' ng-click='currentPage = currentPage - 1'>&laquo;</button>
+        <button type='button' class='btn btn-default' ng-disabled='currentPage == page.no - 1' ng-click='setPage(page.no)' ng-repeat='page in pages'>{{page.no}}</button>
+        <button type='button' class='btn btn-default' ng-disabled='currentPage >= encs.length/pageSize - 1' , ng-click='currentPage = currentPage + 1'>&raquo;</button>
+      </div>
+</center>
+</div>
+  </div>
+  </div>
+  </div>
+  </div>
+
+  </form>
+  <script src='/javas/jquery-2.1.4.min.js'></script>
+<script src="/angularjs/angular.min.js"></script>
+  <script type="text/javascript">
+  var app = angular.module("app", []);
+  app.controller("frmcategoria",   function($scope,$http)
+  {
+  	$scope.formData = {};
+  	$scope.currentPage = 0;
+    $scope.pageSize = 10; //  tamño de la Pagina
+    $scope.pages = [];
+
+  	$scope.reload = function()
+  {
+     location.reload();
+  }
+
+
+  $scope.configPages = function() {
+  			$scope.pages.length = 0;
+  			var ini = $scope.currentPage - 4;
+  			var fin = $scope.currentPage + 5;
+  			if (ini < 1) {
+  				ini = 1;
+  				if (Math.ceil($scope.encs.length / $scope.pageSize) > 10)
+  					fin = 10;
+  				else
+  					fin = Math.ceil($scope.encs.length / $scope.pageSize);
+  			} else {
+  				if (ini >= Math.ceil($scope.encs.length / $scope.pageSize) - 10) {
+  					ini = Math.ceil($scope.encs.length / $scope.pageSize) - 10;
+  					fin = Math.ceil($scope.encs.length / $scope.pageSize);
+  				}
+  			}
+  			if (ini < 1) ini = 1;
+  			for (var i = ini; i <= fin; i++) {
+  				$scope.pages.push({
+  					no: i
+  				});
+  			}
+
+  			if ($scope.currentPage >= $scope.pages.length)
+  				$scope.currentPage = $scope.pages.length - 1;
+  		};
+
+  		$scope.setPage = function(index) {
+  			$scope.currentPage = index - 1;
+  		};
+
+  //alertas
+  function AlertsCtrl($scope, alertsManager) {
+      $scope.alerts = alertsManager.alerts;
+  }
+
+  //fin alertas
+  $scope.submitForm = function (formData) {
+  	alert('Form submitted with' + JSON.stringify(formData));
+  };
+   var alerta="Datos Guardados Correctamente";
+  	$scope.guardar=function()
+  	{	$http.post('/guardado/categoria',
+  		{
+  			'id':$scope.id,
+  			'descripcion':$scope.descripcion,
+        'mod_monitor':$scope.mod_monitor,
+        'cod_patrim':$scope.cod_patrim,
+        'num_serie':$scope.num_serie,
+
+  		}).then(function(response)
+  			{
+  				alert(alerta);
+  			});
+
+  		}
+  	$scope.buscar=function()
+  	{
+  		$http.post('/buscar/categoria',
+  		{	'campo':$scope.campo,
+  			'operador':$scope.operador,
+  			'valor':$scope.valor,
+  			'accion':'buscar',
+  		}).then(function(response)
+  			{
+  				$scope.encs=response.data;
+  			});
+  	}
+  $scope.encs=function(id,Nombre)
+  {
+  }
+
+  	///eliminamos  $scope.removeRow(id);
+  	$scope.eliminar=function(id)
+  	{
+  		$http.post('/eliminar/categoria',
+  		{	'id':id,
+  			'accion':'eliminar',
+  		}).then(function(response)
+  			{
+  				 $scope.removeRow(id);
+  				alert(response.data);
+  			});
+  		}
+  	$scope.removeRow = function(id)
+  {  	var index = -1;
+  		var comArr = eval($scope.encs);
+  		for( var i = 0; i < comArr.length; i++ )
+  	{   if(comArr[i].id === id)
+  		{    index = i;
+  						 break;
+  				}
+  		}
+  	if( index === -1 )
+  			alert("Eliminado");
+  	else
+  			$scope.encs.splice(index, 1);
+  };
+  //  fin de la eliminacion
+  $scope.mostrarDatos1=function(data)
+  	{	d=data.split(",");
+  		$scope.id=d[0];
+  		$scope.	descripcion=d[1];
+      $scope.mod_monitor=d[2];
+      $scope.cod_patrim=d[3];
+      $scope.num_serie=d[4];
+
+  	};
+  })
+  .filter('startFromGrid', function() {
+    return function(input,start)
+  	{
+      start = +start;
+  		if(angular.isArray(input) && input.length > 0) {
+               return input.slice(start);
+          }
+  				return input;
+    }
+  });
+
+
+  </script>
+
+
+  </body>
+</html>

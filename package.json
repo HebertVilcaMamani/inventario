@@ -1,0 +1,38 @@
+{
+  "name": "login",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "bcrypt": "^1.0.3",
+    "bcryptjs": "^2.4.3",
+    "blob-stream": "^0.1.3",
+    "body-parser": "~1.18.2",
+    "brfs": "^2.0.0",
+    "connect-flash": "^0.1.1",
+    "cookie-parser": "~1.4.3",
+    "dbffile": "^0.7.4",
+    "debug": "~2.6.9",
+    "ejs": "^2.5.7",
+    "express": "~4.15.5",
+    "express-formidable": "^0.1.3",
+    "express-handlebars": "^3.0.0",
+    "express-session": "^1.15.6",
+    "form-data": "^2.3.1",
+    "fs": "0.0.1-security",
+    "hotnode": "0.0.8",
+    "localtunnel": "^1.9.0",
+    "morgan": "~1.9.0",
+    "mysql": "^2.15.0",
+    "ngrok": "^3.0.1",
+    "officegen": "github:Ziv-Barber/officegen#master",
+    "orm": "^5.0.2",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
+    "pdfkit": "^0.8.3",
+    "serve-favicon": "~2.4.5",
+    "tempfile": "^2.0.0"
+  }
+}
