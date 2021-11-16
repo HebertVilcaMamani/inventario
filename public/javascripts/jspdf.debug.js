@@ -6588,8 +6588,8 @@ AcroForm.internal.setBitPosition = function (variable, position, value) {
 						table2json = tableToJson(cn, renderer);
 						renderer.y += 10;
 						renderer.pdf.table(renderer.x, renderer.y, table2json.rows, table2json.headers, {
-							autoSize : false,
-							printHeaders: elementHandlers.printHeaders,
+							autoSize : true,
+							printHeaders: true,
 							margins: renderer.pdf.margins_doc,
 							css: GetCSS(cn)
 						});

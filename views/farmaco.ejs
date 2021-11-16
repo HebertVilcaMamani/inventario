@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html>
+<title>REPORTE DIARIO</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#d72525"><link rel="icon" type="image/png" href="/imgFiles/presentacion.png">
+
+<!-- iconos-->
+<link rel="stylesheet" href='/cssFiles/iconos.min.css'>
+ <link rel="stylesheet" href='/cssFiles/bootstrap.min.css'>
+ <link rel="stylesheet" href="/cssFiles/ui.css">
+
+ 
+
+<!-- Top container -->
+<body >
+
+  <link rel="stylesheet" href='/javas/wickedpicker.css'>
+
+
+
+  <%- include users/menu.ejs %>
+
+
+
+      <form ng-app="app" ng-controller="frmfarmacos" ng-init="id=0;operador='LIKE';valor='';
+       procedimiento='ELECTROCARDIOGRAMA';servicio='EMERGENCIA' ;RESPONSABLE='<%=data.usuario.username%>';" 
+        name='exampleForm' novalidate>
+
+<table>
+<tr> 
+ <TH>BUSQUEDA:</TH>
+  <th>
+  <input  type="text"   ng-model="campo"     class="datepicker form-control"   id="datepicker2"
+   autocomplete="off"   style="width: 100%"></th>
+  <th><input  type="text"   ng-model="valor"  class="form-control" style="width: 100%"/></th>
+
+  <th><button ng-click="buscar3();" class="btn btn-primary">REPORTE</button></th>
+ <th> <button  class="btn btn-success" onclick="tableToExcel('testTable', 'W3C Example Table')" 
+  value="Export to Excel"><i class="fa fa-file-excel-o" aria-hidden="true"></i></button></th>
+  
+</tr>
+
+ </table>
+
+
+
+    
+<table style="border:5px double #CCEEFF;  position:absolute;
+    top: 160px;
+    left: 30px;"  >
+
+  <tr>
+
+    <th>
+          <div >
+  <div>
+          <label >Nro Registro</label> {{id}}
+          </div>
+
+  <div class="navbar-form">
+    <h4>FECHA</h4>
+              <input type="text"    class="datepicker form-control"   id="datepicker" ng-model="FECHA"  autocomplete="off">
+</div>
+<div class="navbar-form">
+    <h4>HORA</h4>
+              <input type="text"  ng-model="HORA" name="HORA" class="timepicker form-control"/>
+           
+</div>
+ <div class="navbar-form">
+     <h4>DNI</h4>
+              
+              <input type="text" ng-model="DNI"  maxlength="8" Class="form-control" autocomplete="off"
+               name='dni'  required   ng-class='{ error: exampleForm.dni.$invalid && !exampleForm.$pristine }'>
+
+
+</div>
+  <div class="navbar-form">
+     <h4>NOMBRES Y APELLIDOS</h4>
+              <input  type="text"   ng-model="NOMBRES" class="form-control" autocomplete="off" 
+                 name='nombres'>
+
+</div>
+
+<div class="navbar-form" ng-init='buscar2();'>
+  <h4>MEDICACION</h4>
+  <input type="text"    ng-model="MEDICACION"  name="date2"   list="listadate2" class="form-control"  autocomplete="off"  > 
+
+<datalist id="listadate2" >
+
+  <option ng-repeat="y in encs2 " value="{{y.DESC_MATERIAL}}" >{{y.DESC_MATERIAL}}</option>
+
+</datalist>
+</div>  
+
+ <div class="navbar-form" ng-init='buscar();'>
+  <h4>MEDICO QUE PRESCRIBE</h4>
+  <input type="text"  ng-model="MEDICO"  name="formatoimagen" list="listaformatosimagen" class="form-control"  autocomplete="off"  > 
+
+<datalist id="listaformatosimagen" >
+
+  <option ng-repeat="x in encs "  value="{{x.APELLIDOS_NOMBRES}}" >{{x.APELLIDOS_NOMBRES}}</option>
+
+</datalist>
+</div>  
+
+ <div class="navbar-form"   style="display:none;">
+   <h4>ENFERMERA RESPONSABLE</h4>
+              <select ng-model="RESPONSABLE"  >
+            <option value='<%=data.usuario.username%>' ><%=data.usuario.username%></option>           
+            </select> 
+</div>
+
+ <button ng-click="guardar();" class="btn btn-primary" ng-disabled='!exampleForm.$valid'  >GUARDAR</button>
+  
+
+
+                </div>
+
+                 </th>
+           </tr>     
+          </table>
+ <!--/.parte  de   modal--> 
+
+  <div class="visible-scrollbar">
+          <table   style="border:5px double #CCEEFF;  position:absolute;  top: 160px; left: 300px; 
+          width: 80%; " class='table table-bordered  w3-animate-zoom' ng-init='configPages()'  id="testTable" 
+          summary="Code page support in different versions of MS Windows." rules="groups" frame="hsides" >
+            <tr bgcolor="#87CEFA"><th>Nro</th><th>FECHA</th><th>HORA</th><th>DNI</th><th>NOMBRES Y APELLIDOS</th>
+              <th>MEDICACION</th><th>MEDICO QUE PRESCRIBE</th><th>LIC. RESPONSABLE</th>
+           </tr>
+                  <tr ng-repeat="x in encs3 "  >
+                     <th>{{$index+1}}</th>
+                           <td>{{x.FECHA}}</td>
+                           <td>{{x.HORA}}</td>
+                           <td>{{x.DNI}}</td> 
+                           <td>{{x.NOMBRES}}</td>
+                           <td>{{x.MEDICACION}}</td> 
+                           <td>{{x.MEDICO}}</td> 
+                           <td>{{x.RESPONSABLE}}</td> 
+                            <td><input type="button" class="btn btn-info" ng-click="cad=x.id+' ,'+x.FECHA+'
+                              ,'+x.HORA+','+x.DNI+','+x.NOMBRES+','+x.MEDICACION+','+x.MEDICO+','+x.RESPONSABLE; mostrarDatos1(cad);"
+                                  value="Modificar">
+                </td>
+                  </tr>
+
+          </table>
+          </div> 
+
+
+ </div>
+
+
+     
+    
+
+      <!--  <div class="navbar-form navbar-left">
+          <select ng-model="operador" class="form-control w3-animate-zoom">
+            <option value="LIKE">Similar</option>
+          <option value="=">Igual</option>
+          <option value=">">Mayor</option>
+          <option value="<">Menor</option>
+          </select>
+            </div> -->
+
+             
+    </nav>
+
+          </input>
+
+
+    </form>
+   
+    <script src='/javas/jquery-2.1.4.min.js'></script>
+
+<script src='/javas/wickedpicker.min.js'></script>
+<script src="/cssFiles/elui.js"></script>
+<script>
+ $(function () {
+    $.datepicker.setDefaults($.datepicker.regional["es"]);
+    $("#datepicker").datepicker({
+        dateFormat: 'dd/mm/yy',
+        firstDay: 1
+    }).datepicker("setDate", new Date());
+ });
+
+ $(function () {
+    $.datepicker.setDefaults($.datepicker.regional["es"]);
+    $("#datepicker2").datepicker({
+        dateFormat: 'dd/mm/yy',
+        firstDay: 1
+    }).datepicker("setDate", new Date());
+ });
+  </script>
+    
+    
+<script type="text/javascript">
+var timepickers = $('.timepicker').wickedpicker(); console.log(timepickers.wickedpicker('time', 1)); </script>
+
+
+
+
+  <script src="/angularjs/angular.min.js"></script>
+  <script src='/boostrap/bootstrap.min.js'></script>
+  <%- include users/excel.ejs %>
+
+    <script type="text/javascript">
+    var app = angular.module("app", []);
+    app.controller("frmfarmacos",   function($scope,$http)
+    {
+    	$scope.formData = {};
+    	$scope.currentPage = 0;
+      $scope.pageSize = 10; //  tamño de la Pagina
+      $scope.pages = [];
+       
+    //fin alertas
+    $scope.submitForm = function (formData) {
+    	alert('Form submitted with' + JSON.stringify(formData));
+    };
+
+
+     var alerta="Datos Guardados Correctamente";
+
+    	$scope.guardar=function()	{
+     id=$scope.id,
+     url='/guardado/farmacos';
+       if (id>0) {
+     url='/update/farmacos';
+        };
+        $http.post(url,
+    		{
+    			'id':id,
+          'FECHA':$scope.FECHA,
+          'HORA':$scope.HORA,
+         'DNI':$scope.DNI,
+          'NOMBRES':$scope.NOMBRES,
+          'MEDICACION':$scope.MEDICACION,
+          'MEDICO':$scope.MEDICO,
+          'RESPONSABLE':$scope.RESPONSABLE,
+    		}).then(function(response)
+    			{
+    			});
+alert("DATOS  GUARDADOS CORRECTAMENTE");
+location.reload();
+    		}
+
+
+          $scope.guardar2=function() {
+    
+      id=$scope.id1,
+     url='/guardado/procedimientos';
+       if (id>0) {
+     url='/update/procedimientos';
+        };
+        
+        $http.post(url,
+        {
+          'id':id,
+           'fecha':$scope.fecha1,
+          'nombres':$scope.nombres1,
+          'dni':$scope.dni1,
+          'procedimiento':$scope.procedimiento1,
+          'servicio':$scope.servicio1,
+          'enfermera':$scope.enfermera1,
+          'cantidad':$scope.cantidad1,
+
+        }).then(function(response)
+          {
+          });
+alert("DATOS  GUARDADOS CORRECTAMENTE");
+location.reload();
+        }
+
+
+    	$scope.buscar=function(myText)
+    	{ 
+    		$http.post('/buscar/farmacos',
+
+    		{	
+    			'accion':'buscar',
+
+             		}).then(function(response)
+    			{
+    				$scope.encs=response.data;
+    			});
+               console.log($scope.valor) 
+
+    	}
+
+        $scope.buscar2=function(myText)
+      { 
+        $http.post('/buscar2/farmacos',
+        { 
+          'accion':'buscar2',
+
+                }).then(function(response)
+          {
+            $scope.encs2=response.data;
+          });
+               
+console.log($scope.valor)
+      }
+
+      $scope.buscar3=function(myText)
+      { 
+        $http.post('/buscar3/farmacos',
+        { 'campo':$scope.campo,
+          'valor':$scope.valor,
+          'accion':'buscar3',
+
+                }).then(function(response)
+          {
+            $scope.encs3=response.data;
+          });
+                console.log($scope.valor)
+
+      }
+      $scope.buscar4=function(myText)
+      { 
+        $http.post('/buscar4/citas',
+        { 'campo':$scope.campo,
+          'operador':$scope.operador,
+          'valor':$scope.valor,
+          'accion':'buscar',
+
+                }).then(function(response)
+          {
+            $scope.encs4=response.data;
+          });
+                console.log($scope.valor)
+
+      }
+
+       $scope.buscar5=function(myText)
+      { 
+        $http.post('/buscar5/citas',
+        { 'campo':$scope.campo,
+          'operador':$scope.operador,
+          'valor':$scope.valor,
+          'accion':'buscar',
+
+                }).then(function(response)
+          {
+            $scope.encs5=response.data;
+          });
+                console.log($scope.valor)
+
+      }
+
+
+
+
+
+    $scope.encs=function()
+    {
+    }
+
+    $scope.patrimonio=function()
+    {
+      $http.post('/patrimonio/monitor',
+      {
+        'accion':'persona',
+      }).then(function(response)
+        {
+          $scope.init3=response.data;
+           console.log($scope.init3);
+        });
+    }
+
+    	///eliminamos  $scope.removeRow(id);
+    	$scope.eliminar=function(id)
+    	{   $scope.myText = '';
+    		$http.post('/eliminar/monitor',
+    		{	'id':id,
+    			'accion':'eliminar',
+    		}).then(function(response)
+    			{
+    				 $scope.removeRow(id);
+
+    			},
+          function(data) {
+
+            $scope.myText='Elimine el  Ordenador Relacionado a este Registro';
+
+    }
+
+
+        );
+	}
+
+    	$scope.removeRow = function(id)
+    {  	var index = -1;
+    		var comArr = eval($scope.encs);
+    		for( var i = 0; i < comArr.length; i++ )
+    	{   if(comArr[i].id === id)
+    		{    index = i;
+    						 break;
+    				}
+    		}
+    	if( index === -1 )
+    			alert("Eliminado");
+    	else
+    			$scope.encs.splice(index, 1);
+    };
+    //  fin de la eliminacion
+    $scope.mostrarDatos1=function(data)
+    	{	d=data.split(",");
+    		$scope.id=d[0];
+        $scope.FECHA=d[1];
+        $scope.HORA=d[2];
+         $scope.DNI=d[3];
+        $scope.NOMBRES=d[4];
+         $scope.MEDICACION=d[5];
+          $scope.MEDICO=d[6];
+           $scope.RESPONSABLE=d[7];
+    	};
+    })
+    .filter('startFromGrid', function() {
+      return function(input,start)
+    	{
+        start = +start;
+    		if(angular.isArray(input) && input.length > 0) {
+                 return input.slice(start);
+            }
+    				return input;
+      }
+    });
+
+
+    </script>
+      <script src="/angularjs/formulariosadd.js"></script>
+
+    </body>
+
+</html>

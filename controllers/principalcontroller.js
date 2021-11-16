@@ -32,7 +32,6 @@ module.exports = {
 
                   res.json(rows)
                 });
-
                 //console.log("hola")
             },
             ordenador: function(req,res, next){
@@ -73,8 +72,7 @@ module.exports = {
 
                               res.json(rows)
                             });
-
-                            //console.log("hola")
+                           //console.log("hola")
                         },
                         operadores: function(req,res, next){
 
@@ -87,7 +85,6 @@ module.exports = {
 
                                   res.json(rows)
                                 });
-
                                 //console.log("hola")
                             },
                             recargas: function(req,res, next){
@@ -102,7 +99,6 @@ module.exports = {
 
                                       res.json(rows)
                                     });
-
                                     //console.log("hola")
                                 },
                                 marcas: function(req,res, next){
@@ -116,7 +112,6 @@ module.exports = {
 
                                           res.json(rows)
                                         });
-
                                         //console.log("hola")
                                     },
                                     categorias: function(req,res, next){
@@ -130,7 +125,6 @@ module.exports = {
 
                                               res.json(rows)
                                             });
-
                                             //console.log("hola")
                                         },
 }

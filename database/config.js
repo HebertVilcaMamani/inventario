@@ -1,8 +1,8 @@
 var config = {
 	host : 'localhost',
 	user : 'root',
-	password : '',
-	database : 'inventario'
+	password : 'root',
+	database : 'asistencia'
 };
 
 module.exports = config;

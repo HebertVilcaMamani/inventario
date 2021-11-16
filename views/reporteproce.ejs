@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<title>REPORTE DIARIO</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#d72525"><link rel="icon" type="image/png" href="/imgFiles/presentacion.png">
+
+<!-- iconos-->
+<link rel="stylesheet" href='/cssFiles/iconos.min.css'>
+ <link rel="stylesheet" href='/cssFiles/bootstrap.min.css'>
+  <link rel="stylesheet" href="/cssFiles/ui.css">
+
+
+<body >
+
+  <link rel="stylesheet" href='/javas/wickedpicker.css'>
+
+
+
+  <%- include users/menu.ejs %>
+
+
+
+
+      <form ng-app="app" ng-controller="ESTADITICA1" ng-init="id=0;serv='CONSULTA EXTERNA';" 
+        name='exampleForm' novalidate>
+<CENTER>
+<table>
+<tr> 
+  <TH>SERVICIO:</TH>
+  <th>
+  <select  class=" form-control"  ng-model="serv" >
+           <option value="CONSULTA EXTERNA" >CONSULTA EXTERNA</option>
+            <option value="EMERGENCIA" >EMERGENCIA</option>
+            <option value="TRAUMA SHOCK" >TRAUMA SHOCK</option>
+            <option value="UCI" >UNIDAD DE CUIDADOS INTENSIVOS</option>
+
+  </select>
+</th>
+
+ <TH>FECHA INICIAL:</TH>
+  <th>
+  <input  type="date"   ng-model="campo"     class=" form-control"  
+   autocomplete="off"   style="width: 100%"  required/></th>
+  <TH>FECHA FINAL:</TH>
+   <th>
+    <input  type="date"   ng-model="operador"     class=" form-control"  
+   autocomplete="off"   style="width: 100%" required/></th>
+
+
+  <th><button ng-click="buscar();" class="btn btn-primary">REPORTE</button></th>
+ <th> <button  class="btn btn-success" onclick="tableToExcel('testTable', 'W3C Example Table')" 
+  value="Export to Excel"><i class="fa fa-file-excel-o" aria-hidden="true"></i></button></th>
+  
+</tr>
+
+ </table>
+</CENTER>
+<CENTER>
+  <div class="visible-scrollbar">
+          <table   style="
+          width: 80%; " class='table table-bordered  w3-animate-zoom' ng-init='configPages()'  id="testTable" 
+          summary="Code page support in different versions of MS Windows." rules="groups" frame="hsides" >
+            <tr bgcolor="#87CEFA"><th>PROCEDIMIENTO</th><th>TOTAL</th>
+           </tr>
+                  <tr ng-repeat="x in encs "  >
+                   
+                           <td>{{x.procedimiento}}</td>
+                           <td>{{x.total}}</td>
+
+                  </tr>
+
+          </table>
+          </div> 
+</CENTER>
+
+ </div>
+
+
+             
+    </nav>
+
+          </input>
+
+
+    </form>
+   
+    <script src='/javas/jquery-2.1.4.min.js'></script>
+
+<script src='/javas/wickedpicker.min.js'></script>
+<script src="/cssFiles/elui.js"></script>
+<script>
+ $(function () {
+    $.datepicker.setDefaults($.datepicker.regional["es"]);
+    $("#datepicker").datepicker({
+        dateFormat: 'dd/mm/yy',
+        firstDay: 1
+    }).datepicker("setDate", new Date());
+ });
+
+ $(function () {
+    $.datepicker.setDefaults($.datepicker.regional["es"]);
+    $("#datepicker2").datepicker({
+        dateFormat: 'dd/mm/yy',
+        firstDay: 1
+    }).datepicker("setDate", new Date());
+ });
+  </script>
+    
+    
+<script type="text/javascript">
+var timepickers = $('.timepicker').wickedpicker(); console.log(timepickers.wickedpicker('time', 1)); </script>
+
+
+
+
+  <script src="/angularjs/angular.min.js"></script>
+  <script src='/boostrap/bootstrap.min.js'></script>
+  <%- include users/excel.ejs %>
+
+    <script type="text/javascript">
+    var app = angular.module("app", []);
+    app.controller("ESTADITICA1",   function($scope,$http)
+    {
+      $scope.formData = {};
+      $scope.currentPage = 0;
+      $scope.pageSize = 10; //  tamño de la Pagina
+      $scope.pages = [];
+       
+    //fin alertas
+    $scope.submitForm = function (formData) {
+      alert('Form submitted with' + JSON.stringify(formData));
+    };
+
+
+     var alerta="Datos Guardados Correctamente";
+
+      $scope.buscar=function(myText)
+      { 
+
+         dia2=$scope.campo.getDate();
+
+         if (dia2 < 10) { 
+         dia2 = '0' + dia2; 
+       }
+
+        mes2=$scope.campo.getMonth() + 1;
+          if (mes2 < 10) { 
+         mes2 = '0' + mes2; 
+       }
+
+
+        año2=$scope.campo.getFullYear(),
+
+          dia=$scope.operador.getDate();
+
+         if (dia < 10) { 
+         dia = '0' + dia; 
+       }
+
+        mes=$scope.operador.getMonth() + 1;
+         if (mes < 10) { 
+         mes = '0' + mes; 
+       }
+        año=$scope.operador.getFullYear(),
+
+
+        $http.post('/buscar/estadisticaproce',
+
+        { 
+          campo:año2 + '-' +mes2+ '-' + dia2,
+          operador:año + '-' +mes+ '-' + dia,
+           'serv':$scope.serv,
+          'accion':'buscar',
+
+                }).then(function(response)
+          {
+            $scope.encs=response.data;
+          });
+               console.log($scope.valor) 
+
+      }
+
+        $scope.buscar2=function(myText)
+      { 
+        $http.post('/buscar2/farmacos',
+        { 
+          'accion':'buscar2',
+
+                }).then(function(response)
+          {
+            $scope.encs2=response.data;
+          });
+               
+console.log($scope.valor)
+      }
+
+    
+
+
+    $scope.encs=function()
+    {
+    }
+
+ 
+    })
+    .filter('startFromGrid', function() {
+      return function(input,start)
+      {
+        start = +start;
+        if(angular.isArray(input) && input.length > 0) {
+                 return input.slice(start);
+            }
+            return input;
+      }
+    });
+
+
+    </script>
+      <script src="/angularjs/formulariosadd.js"></script>
+
+    </body>
+
+</html>
+

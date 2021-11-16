@@ -8,22 +8,72 @@
 
 <!-- iconos-->
 <link rel="stylesheet" href='/cssFiles/iconos.min.css'>
+<link rel="stylesheet" href='/cssFiles/bootstrap.min.css'>
+
+
 <style>
 html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 </style>
 <body class="w3-light-grey" onload="usuarios()">
 
-
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.2.61/jspdf.debug.js"></script>
-<script type="text/javascript" src="//code.jquery.com/jquery-compat-git.js"></script>
   <script src='/javas/jquery-2.1.4.min.js'></script>
+  <script src='/boostrap/bootstrap.min.js'></script>
 
 
 <!-- Top container -->
-<div class="w3-bar w3-top w3-black w3-large" style="z-index:4">
-  <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open();"><i class="fa fa-bars"></i>  Menu</button>&nbsp;&nbsp;&nbsp;Sistema de Inventarios
-  <span class="w3-bar-item w3-right"><a href='http://192.168.2.12:3000/logout' >Salir</a>&nbsp; </span>
-</div>
+<nav class="navbar navbar-default" role="navigation">
+  <!-- El logotipo y el icono que despliega el menú se agrupan
+       para mostrarlos mejor en los dispositivos móviles -->
+  <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse"
+            data-target=".navbar-ex1-collapse">
+      <span class="sr-only">Desplegar navegación</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    <a class="navbar-brand" href="#">Inventario</a>
+  </div>
+
+  <!-- Agrupar los enlaces de navegación, los formularios y cualquier
+       otro elemento que se pueda ocultar al minimizar la barra -->
+  <div class="collapse navbar-collapse navbar-ex1-collapse">
+    <ul class="nav navbar-nav">
+
+
+
+
+      <!-- <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+          Menú #1 <b class="caret"></b>
+        </a>
+        <ul class="dropdown-menu">
+          <li><a href="#">Acción #1</a></li>
+          <li><a href="#">Acción #2</a></li>
+          <li><a href="#">Acción #3</a></li>
+          <li class="divider"></li>
+          <li><a href="#">Acción #4</a></li>
+          <li class="divider"></li>
+          <li><a href="#">Acción #5</a></li>
+        </ul>
+      </li> -->
+    </ul>
+
+
+
+        <!-- <div class="navbar-form navbar-left">
+          <input  class="form-control" type="text" ng-model="valor"  value=""    />
+
+
+
+        </div> -->
+
+
+    <%- include users/salir.ejs %>
+
+
+  </div>
+</nav>
 
 <!-- Sidebar/menu -->
 <nav class="w3-sidebar w3-collapse w3-white w3-animate-left" style="z-index:3;width:175px;" id="mySidebar"><br>
@@ -36,8 +86,8 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
     </div>
     <div class="w3-col s8 w3-bar">
       <span>  Bienvenido <h5><%=data.usuario.username%></h5></span><br>
-      <a href="mailto:hebert_2100@hotmail.com?Subject=Hola%20Hebert" target="_top"class="w3-bar-item w3-button"><i class="fa fa-envelope"></i></a>
-      <a href="http://192.168.2.12:3000/registro" class="w3-bar-item w3-button"><i class="fa fa-user"></i></a>
+      <a href="mailto:hebert_2100@hotmail.com?Subject=PRUEBAS%20Hebert" target="_top"class="w3-bar-item w3-button"><i class="fa fa-envelope"></i></a>
+      <%- include users/registro.ejs %>
       <a href="#" class="w3-bar-item w3-button"><i class="fa fa-cog"></i></a>
     </div>
   </div>
@@ -46,22 +96,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
     <h5>Menu</h5>
   </div>
   <div class="w3-bar-block">
-  <div class="w3-bar-item w3-button" onclick="myAccFunc()">
- COMPUTADORA<i class="fa fa-caret-down"></i></div>
- <div id="demoAcc" class="w3-hide w3-white w3-card-4">
-   <a href="http://192.168.2.12:3000/ordenador" class="w3-bar-item w3-button">ORDENADOR</a>
-   <a href="http://192.168.2.12:3000/cpu" class="w3-bar-item w3-button">CPU</a>
-   <a href="http://192.168.2.12:3000/monitor" class="w3-bar-item w3-button">MONITOR</a>
-   <a href="http://192.168.2.12:3000/teclado" class="w3-bar-item w3-button">TECLADO</a>
-
- </div>
-<br>
- <div class="w3-bar-item w3-button" onclick="myAccFunc2()">
-PATRIMONIO<i class="fa fa-caret-down"></i></div>
-<div id="demoAcc2" class="w3-hide w3-white w3-card-4">
-  <a href="http://192.168.2.12:3000/patrimonio" class="w3-bar-item w3-button">AGREGAR</a>
-  <a href="http://192.168.2.12:3000/formpatrim" class="w3-bar-item w3-button">FORMATO PATRIMONIO</a>
-</div>
+<%- include users/menu.ejs %>
   </div>
 </nav>
 
@@ -75,7 +110,7 @@ PATRIMONIO<i class="fa fa-caret-down"></i></div>
   <!-- Header -->
   <header class="w3-container" style="padding-top:22px">
     <h5><b><i class="fa fa-dashboard"></i>   Mi Menu</b></h5>
-    <input type="submit" class="w3-animate-zoom  w3-teal w3-padding-16"  onclick = "location='http://192.168.2.12:3000/registro'" value="Registre Un Nuevo Usuario"/>&nbsp&nbsp<i class="fa fa-user-circle-o w3-xxxlarge"></i>
+
 
   </header>
 <br><br><br>
@@ -131,10 +166,7 @@ PATRIMONIO<i class="fa fa-caret-down"></i></div>
     </table>
 </div>-->
 
-    <table border="2">
-    <tr id='cusuarios'></tr>
-
-    </table>
+  <h1>-------</h1>
 
 
 <!--<button onclick="javascript:demoFromHTML();">PDF</button> -->
@@ -169,30 +201,7 @@ function myAccFunc2() {
 }
 
   </script>
-	<script>
-	// Get the Sidebar
-	var mySidebar = document.getElementById("mySidebar");
-
-	// Get the DIV with overlay effect
-	var overlayBg = document.getElementById("myOverlay");
-
-	// Toggle between showing and hiding the sidebar, and add overlay effect
-	function w3_open() {
-	    if (mySidebar.style.display === 'block') {
-	        mySidebar.style.display = 'none';
-	        overlayBg.style.display = "none";
-	    } else {
-	        mySidebar.style.display = 'block';
-	        overlayBg.style.display = "block";
-	    }
-	}
-
-	// Close the sidebar with the close button
-	function w3_close() {
-	    mySidebar.style.display = "none";
-	    overlayBg.style.display = "none";
-	}
-	</script>
+	    <script src="/angularjs/formulariosadd.js"></script>
 
 <script type="text/javascript">
 var p;
@@ -205,7 +214,6 @@ function usuarios()
     data:'accion=usuarios',
     success:function(html)
     {
-   alert(html)
       selusuario(html);
     }
 
@@ -255,6 +263,7 @@ function demoFromHTML() {
   }, margins);
 }
 </script>
+<script src="/angularjs/responsimenu.js"></script>
 
   <!-- End page content -->
 </div>

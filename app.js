@@ -2,27 +2,35 @@ var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
-var cookieParser = require('cookie-parser');
+
 var bodyParser = require('body-parser');
-var flash =require('connect-flash');
-var session =require('express-session');
+
 var passport =require('passport');
 var officegen = require('officegen');
+
 require('./passport/passport')(passport);
 var routes = require('./routes/routes');
+var session =require('express-session');
+var cookieParser = require('cookie-parser');
+var flash = require('connect-flash');
 var app = express();
 var formidable = require('express-formidable');
 var DBFFile  = require( 'dbffile' );
 
 
+
+app.use(function(err, req, res, next) {
+res.render('home.ejs', { link: "192.168.0.10:1" });
+});
 app.use(cookieParser());
 app.use(session({
   secret: 'secret',
   resave: false,
   saveUninitialized :false
 }));
-app.use(formidable.parse({keepExtensions:true}));
 app.use(flash());
+app.use(formidable.parse({keepExtensions:true}));
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -50,6 +58,7 @@ app.use('/angu', express.static(__dirname + '/public/bower_components/angular'))
 app.use('/javas', express.static(__dirname + '/public/javascripts'));
 //  aver si funca login
 app.use('/angularjs', express.static(__dirname + '/public/angularjs'));
+app.use('/fonts', express.static(__dirname + '/public/fonts'));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

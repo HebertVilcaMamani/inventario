@@ -25,7 +25,7 @@ module.exports = {
       db.end();
     });
     req.flash('info', 'Se ha registrado correctamente, ya puedes  iniciar sesion')
-    return res.redirect('/');
+    return res.redirect('/') ;
   },
 
   getSingIn: function(req,res,next) {

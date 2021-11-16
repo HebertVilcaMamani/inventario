@@ -1,139 +1,465 @@
-<!DOCTYPE html>
+
 <html>
-<title>INVENTARIO</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<meta name="theme-color" content="#d72525"><link rel="icon" type="image/png" href="/imgFiles/presentacion.png">
-<link rel="stylesheet" href="/cssFiles/style.css">
-<link rel="stylesheet"  href="/cssFiles/zoom.css">
-<body >
-
-<!-- Navbar (sit on top) -->
-<div class="w3-top">
-  <div class="w3-bar w3-white w3-wide w3-padding w3-card-2">
-    <a href="#home" class="w3-bar-item w3-button"><b>Essalud</b>  Inventario</a>
-    <!-- Float links to the right. Hide them on small screens -->
-    <div class="w3-right w3-hide-small">
-      <a href="#projects" class="w3-bar-item w3-button">Ordenadores</a>
-      <a href="#about" class="w3-bar-item w3-button">Contacto</a>
-      <a href="#contact" class="w3-bar-item w3-button">Cometarios  </a>
-      <a onclick="document.getElementById('id01').style.display='block'" class="w3-bar-item w3-button" >Iniciar Sesion</a>
-    </div>
-  </div>
-</div>
-
-<!-- Header -->
-<header class="w3-display-container w3-content w3-wide" style="max-width:1600px;" id="home">
-  <img class="w3-image" src="/imgFiles/essalud.jpg" alt="Architecture"  width="1900" height="800">
-  <div class="w3-display-middle w3-margin-top w3-center">
-    <h1 class="w3-xxlarge w3-text-white"><span class="w3-padding w3-black w3-opacity-min"><b>Inventario Informatica</b></span> <span class="w3-hide-small w3-text-light-grey">ESSALUD</span></h1>
-  </div>
-</header>
-
-<!-- Page content -->
-<div class="w3-content w3-padding" style="max-width:1564px">
-
-  <!-- Project Section -->
-  <div class="w3-container w3-padding-32" id="projects">
-    <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">Ordenadores</h3>
-  </div>
 
 
 
-  <!-- About Section -->
-  <div class="w3-container w3-padding-32" id="about">
-    <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">Contactos</h3>
-    <p>Nos Puede  Visitar en la red asistencial  moquegua
-    </p>
-  </div>
-
-  <div class="w3-row-padding w3-grayscale ">
-    <div class="w3-col l3 m6 w3-margin-bottom ">
-      <img src="imgFiles/essalud2.jpg" alt="John" style="width:100%" >
-      <h3>Red asistencial Moquegua</h3>
-      <p class="w3-opacity">Consultas</p>
-      <p>Ubicacion:.... </p>
-      <p><button class="w3-button w3-light-grey w3-block">Contactar</button></p>
-    </div>
-  </div>
-
-  <!-- Contact Section -->
-
-
-
-<!-- End page content -->
-</div>
-
-<div id="id01" class="modal">
-
-  <form class="modal-content animate" action='http://192.168.2.12:3000/' method='post'>
-    <div class="imgcontainer">
-      <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
-      <img src="/imgFiles/avatar.png" alt="Avatar" class="avatar">
-    </div>
-
-    <div class="container">
-      <label ><b>Usuario</b></label>
-      <input type="text" placeholder="Ingrese su Usuario" name="username" required>
-
-      <label><b>Contraseña</b></label>
-      <input type="password" placeholder="Ingrese su Contraseña" name="password" required>
-       <input type='hidden' name='accion' >
-      <button  type="submit">Iniciar Sesion</button>
-
-    </div>
-    <div class='row'>
-    				<div class='cols-sm-12' style='text-align:center'>
-    				</div>
-    			</div>
-    <div class="container" style="background-color:#f1f1f1">
-      <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancelar</button>
-    <center>  <H3> Solicite su usuario</H3></center>
-    </div>
-  </form>
-
-</div>
-
-
-
-<!-- Google Map -->
-<!--<div id="googleMap" class="w3-grayscale" style="width:100%;height:450px;"></div>-->
-
-<!-- Footer -->
-<footer class="w3-center w3-black w3-padding-16">
-  <p>CopyRight <a  title="ESSlaud" target="_blank" class="w3-hover-text-green">PRACTICANTE</a></p>
-</footer>
-
-<!-- Add Google Maps -->
-<!--
-<script>
-function myMap()
-{
-  myCenter=new google.maps.LatLng(41.878114, -87.629798);
-  var mapOptions= {
-    center:myCenter,
-    zoom:12, scrollwheel: false, draggable: false,
-    mapTypeId:google.maps.MapTypeId.ROADMAP
-  };
-  var map=new google.maps.Map(document.getElementById("googleMap"),mapOptions);
-
-  var marker = new google.maps.Marker({
-    position: myCenter,
-  });
-  marker.setMap(map);
+   
+<style>   * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
-</script>
-<script src="js/mapa.js?key=AIzaSyBSmRYaJYPjUW63Mn_VeMJUBeFu6reu4tg"></script>
 
-To use this code on your website, get a free API key from Google.
-Read more at: https://www.w3schools.com/graphics/google_maps_basic.asp
--->
-<script src='/javas/jquery-2.1.4.min.js'></script>
-<script src='/boostrap/bootstrap.min.js'></script>
-<script src='/javas/zoom.js'></script>
-<script  src='/javas/tether.min.js'></script>
-<script  src='/javas/tether.js'></script>
-<script>function open(path: string): Promise<DBFFile>;
- </script>
+html {
+    width: 100vw;
+    height: 100vh;
+}
+
+body {
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: top;
+    background-image: url(/imgFiles/2.jpg);
+    width: 100%;
+    height: 100%;
+    font-family: Arial, Helvetica, sans-serif;
+    letter-spacing: 0.02em;
+    font-weight: 400;
+}
+.blurred-box {
+    position: relative;
+     width: 450px;
+    height: 550px;
+    top: calc(40% - 175px);
+    left: calc(40% - 125px);
+    background: inherit;
+    border-radius: 2px;
+    overflow: hidden;
+}
+.blurred-box:after {
+    content: '';
+    width: 600px;
+    height: 700px;
+    background: inherit;
+    position: absolute;
+    left: -20px;
+    right: 0;
+    top: -25px;
+    bottom: 0;
+    box-shadow: inset 0 0 0 200px rgba(255, 255, 255, 0.05);
+    filter: blur(20px);
+}
+.user-login-box {
+    position: relative;
+    margin-top: 10px;
+
+    text-align: center;
+    z-index: 1;
+}
+.user-login-box > * {
+    display: inline-block;
+
+    width: 65px;
+}
+.user-icon {
+    width: 150px;
+    height: 150px;
+    position: relative;
+    border-radius: 40%;
+    background-size: contain;
+    background-image: url(/imgFiles/usi1.png);
+}
+.user-name {
+    margin-top: 45px;
+    margin-bottom: 45px;
+    color: #fff;
+}
+input.user-username {
+    margin-bottom: 25px !important;
+}
+input.user-username, input.user-password {
+    display: block;
+    width: 250px;
+    height: 50px;
+    opacity: 3;
+    border-radius: 20px;
+    padding: 15px 15px;
+    border: none;
+    margin: 0 auto;
+    outline: none;
+}
+.gradient-button {
+    margin: 10px;
+    font-family: "Arial Black", Gadget, sans-serif;
+    font-size: 15px;
+    padding: 20px;
+    text-align: center;
+    text-transform: uppercase;
+    transition: 0.5s;
+    background-size: 200% auto;
+    color: #FFF;
+    box-shadow: 0 0 20px #eee;
+    border-radius: 10px;
+    width: 200px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+    cursor: pointer;
+    display: inline-block;
+    border-radius: 25px;
+}
+.gradient-button:hover{
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+    margin: 8px 10px 12px;
+}
+.gradient-button-1 {background-image: linear-gradient(to right, #DD5E89 0%, #F7BB97 51%, #DD5E89 100%)}
+.gradient-button-1:hover { background-position: right center; }
+.gradient-button-2 {background-image: linear-gradient(to right, #2BC0E4 0%, #EAECC6 51%, #2BC0E4 100%)}
+.gradient-button-2:hover { background-position: right center; }
+.gradient-button-3 {background-image: linear-gradient(to right, #7474BF 0%, #348AC7 51%, #7474BF 100%)}
+.gradient-button-3:hover { background-position: right center; }
+.gradient-button-4 {background-image: linear-gradient(to right, #00d2ff 0%, #3a7bd5 51%, #00d2ff 100%)}
+.gradient-button-4:hover { background-position: right center; }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Lato', 'Arial', sans-serif;
+}
+
+/* HEADINGS */
+
+h1, p {
+  color: #1D7FC1;
+
+  line-height: 1;
+}
+
+h1 {
+  font-size: 2.2rem;
+}
+
+h2 {
+  color: #000;
+  font-size: 1.3rem;
+  text-align: center;
+  line-height: 1.4;
+  margin-bottom: 10px;
+}
+
+/* BASIC SETUP */
+
+.page-wrapper {
+  width: 100%;
+  height: auto;
+}
+
+.nav-wrapper {
+  width: 100%;
+  position: -webkit-sticky; /* Safari */
+  position: sticky;
+  top: 0;
+  background-color: #fff;
+}
+
+.grad-bar {
+  width: 100%;
+  height: 5px;
+  background: linear-gradient(-45deg, #EE7752, #E73C7E, #23A6D5, #23D5AB);
+  background-size: 400% 400%;
+    -webkit-animation: gradbar 15s ease infinite;
+  -moz-animation: gradbar 15s ease infinite;
+  animation: gradbar 15s ease infinite;
+}
+
+/* NAVIGATION */
+
+.navbar {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  align-items: center;
+  height: 50px;
+  overflow: hidden;
+}
+
+.navbar img {
+  height: 50px;
+  width: auto;
+  justify-self: start;
+  margin-left: 20px;
+}
+
+.navbar ul {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(6,1fr);
+  justify-self: end;
+  
+}
+
+.nav-item a {
+  color: #000;
+  font-size: 0.9rem;
+  font-weight: 400;
+  text-decoration: none;
+  transition: color 0.3s ease-out;
+}
+
+.nav-item a:hover {
+  color: #3498db;
+}
+
+/* SECTIONS */
+
+
+.features {
+  width: 100%;
+  height: auto;
+  background-color: #f1f1f1;
+  display: flex;
+  padding: 50px 20px;
+  justify-content: space-around;
+}
+
+.feature-container {
+  flex-basis: 30%;
+  margin-top: 10px;
+}
+
+.feature-container p {
+  color: #000;
+  text-align: center;
+  line-height: 1.4;
+  margin-bottom: 15px;
+}
+
+.feature-container img {
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+/* SEARCH FUNCTION */
+
+#search-icon {
+  font-size: 0.9rem;
+  margin-top: 3px;
+  margin-left: 15px;
+  transition: color 0.3s ease-out;
+}
+
+#search-icon:hover {
+  color: #3498db;
+  cursor: pointer;
+}
+
+.search {
+  transform: translate(-35%);
+  -webkit-transform: translate(-35%);
+  transition: transform 0.7s ease-in-out;
+  color: #3498db;
+}
+
+.no-search {
+  transform: translate(0);
+  transition: transform 0.7s ease-in-out;
+}
+
+.search-input {
+  position: absolute;
+  top: -4px;
+  right: -125px;
+  opacity: 0;
+  z-index: -1;
+  transition: opacity 0.6s ease;
+}
+
+.search-active {
+  opacity: 1;
+  z-index: 0;
+}
+
+input {
+  border: 0;
+  border-left: 1px solid #ccc;
+  border-radius: 0; /* FOR SAFARI */
+  outline: 0;
+  padding: 5px;
+}
+
+/* MOBILE MENU & ANIMATION */
+
+.menu-toggle .bar{
+  width: 25px;
+  height: 3px;
+  background-color: #3f3f3f;
+  margin: 5px auto;
+  -webkit-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+
+.menu-toggle {
+  justify-self: end;
+  margin-right: 25px;
+  display: none;
+}
+
+.menu-toggle:hover{
+  cursor: pointer;
+}
+
+#mobile-menu.is-active .bar:nth-child(2){
+  opacity: 0;
+}
+
+#mobile-menu.is-active .bar:nth-child(1){
+  -webkit-transform: translateY(8px) rotate(45deg);
+  -ms-transform: translateY(8px) rotate(45deg);
+  -o-transform: translateY(8px) rotate(45deg);
+  transform: translateY(8px) rotate(45deg);
+}
+
+#mobile-menu.is-active .bar:nth-child(3){
+  -webkit-transform: translateY(-8px) rotate(-45deg);
+  -ms-transform: translateY(-8px) rotate(-45deg);
+  -o-transform: translateY(-8px) rotate(-45deg);
+  transform: translateY(-8px) rotate(-45deg);
+}
+
+/* KEYFRAME ANIMATIONS */
+
+@-webkit-keyframes gradbar {
+  0% {
+    background-position: 0% 50%
+  }
+  50% {
+    background-position: 100% 50%
+  }
+  100% {
+    background-position: 0% 50%
+  }
+}
+
+@-moz-keyframes gradbar {
+  0% {
+    background-position: 0% 50%
+  }
+  50% {
+    background-position: 100% 50%
+  }
+  100% {
+    background-position: 0% 50%
+  }
+}
+
+@keyframes gradbar {
+  0% {
+    background-position: 0% 50%
+  }
+  50% {
+    background-position: 100% 50%
+  }
+  100% {
+    background-position: 0% 50%
+  }
+}
+
+/* Media Queries */
+
+  /* Mobile Devices - Phones/Tablets */
+
+@media only screen and (max-width: 720px) { 
+  .features {
+    flex-direction: column;
+    padding: 50px;
+  }
+  
+  /* MOBILE HEADINGS */
+  
+  h1 {
+    font-size: 1.9rem;
+  }
+  
+  h2 {
+    font-size: 1rem;
+  }
+  
+  p {
+    font-size: 0.8rem;
+  }
+  
+  /* MOBILE NAVIGATION */
+     
+  .navbar ul {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    justify-content: start;
+    top: 55px;
+    background-color: #fff;
+    width: 100%;
+    height: calc(100vh - 55px);
+    transform: translate(-101%);
+    text-align: center;
+    overflow: hidden;
+  }
+  
+  .navbar li {
+    padding: 15px;
+  }
+  
+  .navbar li:first-child {
+    margin-top: 50px;
+  }
+  
+  .navbar li a {
+    font-size: 1rem;
+  }
+   
+  .menu-toggle, .bar {
+    display: block;
+    cursor: pointer;
+  }
+  
+
+
+
+</style>
+ <body>
+  <div class="page-wrapper">
+ <div class="nav-wrapper">
+ 
+  <nav class="navbar">
+    <img src="/imgFiles/salud.png">
+
+    <h1>
+    Sistema de Asistencia Red Asistencial Moquegua</h1>
+    <div class="menu-toggle" id="mobile-menu">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </div>
+  </nav>
+   <div class="grad-bar"></div>
+  </div>
+</div>
+
+<div class="blurred-box">
+
+ <form  action="http://172.26.30.122:2000/" method='post'>
+        <div class="user-login-box">
+ 
+            <span class="user-icon"></span> <br>
+            <div class="user-name">LOGIN</div>
+            <input   name='username' type="text" class="user-username" placeholder="Usuario" required>
+            <input  name='password' type="password" class="user-password" placeholder="Contraseña" required>
+    
+                   <button type='submit' name='btn_login' class="gradient-button gradient-button-4">INICIAR SESION</button>
+           
+        </div>
+</form>
+    </div>
+  
+
 </body>
 </html>
